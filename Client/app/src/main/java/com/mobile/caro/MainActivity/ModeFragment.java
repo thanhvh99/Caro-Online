@@ -1,5 +1,6 @@
 package com.mobile.caro.MainActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.mobile.caro.OnePlayerActivity.OnePlayerActivity;
 import com.mobile.caro.R;
+import com.mobile.caro.TwoPlayersOfflineActivity.TwoPlayersActivity;
+import com.mobile.caro.TwoPlayersOnlineActivity.MainOnlineActivity;
 
 public class ModeFragment extends Fragment {
 
@@ -27,21 +31,24 @@ public class ModeFragment extends Fragment {
         view.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(activity, OnePlayerActivity.class);
+                startActivity(intent);
             }
         });
 
         view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(activity, TwoPlayersActivity.class);
+                startActivity(intent);
             }
         });
 
         view.findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(activity, MainOnlineActivity.class);
+                startActivity(intent);
             }
         });
 

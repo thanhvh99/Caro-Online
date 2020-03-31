@@ -16,6 +16,10 @@ import android.view.View;
 
 public class BoardViewer extends SurfaceView implements SurfaceHolder.Callback {
 
+    private static final int MODE_TOUCH = 0;
+    private static final int MODE_MOVE = 1;
+    private static final int MODE_SCALE = 2;
+
     private int blockSize = 50;
     private int markSize;
     private int markPadding;
@@ -25,24 +29,90 @@ public class BoardViewer extends SurfaceView implements SurfaceHolder.Callback {
     private Point lastMove = new Point(-1, -1);
     private Point surfaceSize = new Point();
     private Point offset = new Point(0, 0);
-    private float scale = 1;
+    private float lastScale = 1;
+    private float currentScale = 1;
+    private float lastDistance = 0;
+    private float currentDistance = 0;
     private Board board;
+    private int touchMode = 0;
 
     public BoardViewer(Context context) {
         super(context);
+        getHolder().addCallback(this);
     }
 
     public BoardViewer(Context context, AttributeSet attrs) {
         super(context, attrs);
+        getHolder().addCallback(this);
     }
 
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        surfaceSize.set(holder.getSurfaceFrame().width(), holder.getSurfaceFrame().height());
-        calculateSize();
-        setupListener();
+        surfaceSize.set(getWidth(), getHeight());
+        markPadding = blockSize / 4;
+        markSize = blockSize - markPadding * 2;
+        draw();
+
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                int id = event.getPointerId(event.getActionIndex());
+                int index = event.findPointerIndex(id);
+                float x = event.getX(index);
+                float y = event.getY(index);
+
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        if (tracker.size() > 1) {
+                            break;
+                        }
+                        PointF pointF = new PointF(x, y);
+                        tracker.put(id, pointF);
+                        System.out.println(tracker.size());
+                        if (tracker.size() > 1) {
+                            touchMode = MODE_SCALE;
+                            PointF firstPoint = tracker.valueAt(0);
+                            lastDistance = squareDistance(pointF, firstPoint);
+                            lastScale = currentScale;
+                        }
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (tracker.size() == 1) {
+                            touchMode = MODE_MOVE;
+                            PointF last = tracker.get(id);
+                            addOffset((int) (last.x - x), (int) (last.y - y));
+                            last.set(x, y);
+                        } else if (tracker.size() == 2) {
+                            touchMode = MODE_SCALE;
+                            PointF firstPoint = tracker.valueAt(0);
+                            PointF secondPoint = tracker.valueAt(1);
+                            currentDistance = squareDistance(firstPoint, secondPoint);
+                            currentScale = lastScale + (currentDistance - lastDistance) / 10f;
+                            PointF last = tracker.get(id);
+                            last.set(x, y);
+                        }
+                        draw();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_POINTER_UP:
+                        tracker.delete(id);
+                        if (touchMode == MODE_TOUCH) {
+                            int tileX = (int) ((x + offset.x) / blockSize);
+                            int tileY = (int) ((y + offset.y) / blockSize);
+                            activity.onTileSelected(tileX, tileY);
+                        }
+                        touchMode = tracker.size();
+                        break;
+                }
+                return true;
+            }
+        });
     }
+
+
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -57,14 +127,8 @@ public class BoardViewer extends SurfaceView implements SurfaceHolder.Callback {
     //////////////////////
     //      Private
     //////////////////////
-    private void setupListener() {
-        setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                return true;
-            }
-        });
+    private float squareDistance(PointF p1, PointF p2) {
+        return (p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y);
     }
 
     private void addOffset(int x, int y) {
@@ -79,12 +143,10 @@ public class BoardViewer extends SurfaceView implements SurfaceHolder.Callback {
         draw();
     }
 
-    private void resetOffset() {
-        offset.x = (blockSize * board.getSize() - surfaceSize.x) / 2;
-        offset.y = (blockSize * board.getSize() - surfaceSize.y) / 2;
-    }
-
-    private void draw() {
+    /////////////////////
+    //      Public
+    /////////////////////
+    public void draw() {
         if (board == null) {
             return;
         }
@@ -122,17 +184,10 @@ public class BoardViewer extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    private void calculateSize() {
-        markPadding = blockSize / 4;
-        markSize = blockSize - markPadding * 2;
-    }
-
-    /////////////////////
-    //      Public
-    /////////////////////
     public void setBoard(Board board) {
         this.board = board;
-        resetOffset();
+        offset.x = (blockSize * board.getSize() - surfaceSize.x) / 2;
+        offset.y = (blockSize * board.getSize() - surfaceSize.y) / 2;
         draw();
     }
 

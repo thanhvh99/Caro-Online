@@ -2,6 +2,8 @@ package com.mobile.caro;
 
 public class Board {
 
+    public static final int DEFAULT_SIZE = 19;
+
     public static final int VALUE_NULL = 0;
     public static final int VALUE_X = 1;
     public static final int VALUE_O = 2;
