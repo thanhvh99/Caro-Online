@@ -1,4 +1,4 @@
-package com.mobile.caroonline;
+package com.mobile.caro;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

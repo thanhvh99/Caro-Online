@@ -1,0 +1,43 @@
+package com.mobile.caro.MainActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import android.os.Bundle;
+import android.widget.FrameLayout;
+
+import com.mobile.caro.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private MenuFragment menuFragment;
+    private ModeFragment modeFragment;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initialize();
+    }
+
+    private void initialize() {
+        menuFragment = new MenuFragment(this);
+        modeFragment = new ModeFragment(this);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuFragment).commit();
+    }
+
+    public void changeMenuFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuFragment).commit();
+    }
+
+    public void changeModeFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, modeFragment).commit();
+    }
+
+}
