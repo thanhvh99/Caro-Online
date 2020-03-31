@@ -24,28 +24,28 @@ public class ModeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mode, null);
 
-        view.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_play_with_computer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_play_with_human).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        view.findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_play_online).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        view.findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.changeMenuFragment();

@@ -1,5 +1,6 @@
 package com.mobile.caro.MainActivity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         initialize();
     }
 
@@ -29,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
         menuFragment = new MenuFragment(this);
         modeFragment = new ModeFragment(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, menuFragment).commit();
     }
 
     public void changeMenuFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, menuFragment).commit();
     }
 
     public void changeModeFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, modeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, modeFragment).commit();
     }
 
 }

@@ -9,4 +9,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="play">Chơi</string>
+    <string name="settings">Cài đặt</string>
+    <string name="quit">Thoát</string>
+    <string name="btn_play_with_computer">Chơi với máy</string>
+    <string name="btn_play_with_human">Hai người chơi</string>
+    <string name="btn_play_online">Chơi online</string>
+    <string name="btn_back">Thoát</string>
 </resources>

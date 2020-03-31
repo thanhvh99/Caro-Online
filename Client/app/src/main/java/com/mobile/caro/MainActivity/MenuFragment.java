@@ -24,21 +24,21 @@ public class MenuFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, null);
 
-        view.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.changeModeFragment();
             }
         });
 
-        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        view.findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btn_quit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.finish();
