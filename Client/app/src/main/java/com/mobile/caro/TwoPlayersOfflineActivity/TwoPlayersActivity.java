@@ -1,5 +1,6 @@
 package com.mobile.caro.TwoPlayersOfflineActivity;
 
+import android.graphics.PointF;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,22 +23,33 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_players);
 
-        loadProgress();
+        //loadProgress();
+        board = new Board(19);
         setupBoardViewer();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        saveProgress();
+        //saveProgress();
     }
 
     @Override
     protected void onTileSelected(int x, int y) {
-        System.out.println(x + " " + y);
+        if (board.isEmptyAt(x, y)) {
+            if (boardViewer.getConfirmMove().equals(x, y)) {
+                board.setValueAt(x, y, isFirstPlayerTurn ? Board.VALUE_O : Board.VALUE_X);
+                isFirstPlayerTurn = !isFirstPlayerTurn;
+                boardViewer.removeConfirmMove();
+                boardViewer.setLastMove(x, y);
+            } else {
+                boardViewer.setConfirmMove(x, y);
+            }
+        } else {
+            boardViewer.removeConfirmMove();
+        }
+        boardViewer.draw();
     }
-
-
 
     private void saveProgress() {
         try {
