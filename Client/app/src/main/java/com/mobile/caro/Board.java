@@ -2,7 +2,9 @@ package com.mobile.caro;
 
 public class Board {
 
-    public static final int VALUE_NULL = 0;
+    public static final int DEFAULT_SIZE = 19;
+
+    public static final int VALUE_EMPTY = 0;
     public static final int VALUE_X = 1;
     public static final int VALUE_O = 2;
 
@@ -22,5 +24,17 @@ public class Board {
 
     public int[][] getMatrix() {
         return matrix;
+    }
+
+    public boolean isEmptyAt(int x, int y) {
+        return isInRange(x, y) && matrix[y][x] == VALUE_EMPTY;
+    }
+
+    public void setValueAt(int x, int y, int value) {
+        matrix[y][x] = value;
+    }
+
+    private boolean isInRange(int x, int y) {
+        return x >= 0 && x < matrix.length && y >= 0 && y < matrix.length;
     }
 }

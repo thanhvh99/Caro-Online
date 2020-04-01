@@ -7,15 +7,19 @@ import androidx.annotation.Nullable;
 
 public abstract class AbstractPlayActivity extends Activity {
 
-    protected BoardViewer customSurfaceView;
+    protected BoardViewer boardViewer;
+    protected Board board;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BitmapManager.initialize(this);
     }
 
-    protected void initialize() {
-
+    protected void setupBoardViewer() {
+        boardViewer = findViewById(R.id.boardViewer);
+        boardViewer.setBoard(board);
+        boardViewer.setActivity(this);
     }
 
     protected abstract void onTileSelected(int x, int y);
