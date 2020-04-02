@@ -2,9 +2,11 @@ package com.mobile.caro.TwoPlayersOfflineActivity;
 
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -42,6 +44,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
 
         //click menu
         onMenu();
+
     }
 
     private void onMenu() {
