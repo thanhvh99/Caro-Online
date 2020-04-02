@@ -2,8 +2,13 @@ package com.mobile.caro.TwoPlayersOfflineActivity;
 
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board;
@@ -15,8 +20,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class TwoPlayersActivity extends AbstractPlayActivity {
-
+    private DrawerLayout drawerLayout;
     private boolean isFirstPlayerTurn = true;
+    private TextView textViewmode;
+    private ImageButton ibtnMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +33,30 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         //loadProgress();
         board = new Board(19);
         setupBoardViewer();
+
+        //ánh xạ
+        mapping();
+
+        //set chế độ chơi
+        textViewmode.setText("Chế độ 2 người chơi");
+
+        //click menu
+        onMenu();
+    }
+
+    private void onMenu() {
+        ibtnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+    }
+
+    private void mapping() {
+        textViewmode = (TextView) findViewById(R.id.tv_mode);
+        ibtnMenu = (ImageButton)findViewById(R.id.ibtn_menu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
     }
 
     @Override
