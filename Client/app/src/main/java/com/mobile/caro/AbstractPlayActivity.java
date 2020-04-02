@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class AbstractPlayActivity extends AppCompatActivity {
+public abstract class AbstractPlayActivity extends Activity {
 
     protected BoardViewer boardViewer;
     protected Board board;

@@ -8,6 +8,10 @@
     <include layout="@layout/toolbar" />
     <include layout="@layout/navigation_drawing"/>
 
+    <com.mobile.caro.BoardViewer
+        android:id="@+id/boardViewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"

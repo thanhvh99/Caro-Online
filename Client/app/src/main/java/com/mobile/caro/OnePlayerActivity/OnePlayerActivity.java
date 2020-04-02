@@ -10,10 +10,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.mobile.caro.AbstractPlayActivity;
+import com.mobile.caro.Board;
 import com.mobile.caro.R;
 
 public class OnePlayerActivity extends AbstractPlayActivity {
-    private Toolbar toolbar;
     private ImageButton ibtnMenu;
     private DrawerLayout drawerLayout;
     private int dem = 0;
@@ -23,7 +23,6 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_player);
         mapping();
-        setSupportActionBar(toolbar);
         ibtnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +30,8 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 onOpenDrawer(dem);
             }
         });
+        board = new Board(19);
+        setupBoardViewer();
     }
 
     private void onOpenDrawer(int x){
@@ -44,7 +45,6 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     }
 
     private void mapping() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         ibtnMenu = (ImageButton)findViewById(R.id.ibtn_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
     }
