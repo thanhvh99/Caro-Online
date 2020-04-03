@@ -50,7 +50,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         selectedItemNavigation();
 
     }
-
+//////////
     private void selectedItemNavigation() {
         NavigationView navigationView = new NavigationView(OnePlayerActivity.this);
         navigationView = (NavigationView) findViewById(R.id.navigation_one);
