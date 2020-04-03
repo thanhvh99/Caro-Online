@@ -42,7 +42,7 @@ public class Board {
                 if (i == 0 && j == 0) {
                     continue;
                 }
-                int count = 1;
+                int count = 0;
                 for (int a = 0; a < 5; a++) {
                     xTemp = x + a * i;
                     yTemp = y + a * j;
