@@ -4,14 +4,18 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board;
 import com.mobile.caro.R;
@@ -26,6 +30,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
     private boolean isFirstPlayerTurn = true;
     private TextView textViewmode;
     private ImageButton ibtnMenu;
+    private ImageView imgPlayerOne, imgPlayerTwo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +44,42 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         //ánh xạ
         mapping();
 
-        //set chế độ chơi
+        //set chế độ chơi, quân cờ
         textViewmode.setText("Chế độ 2 người chơi");
+        imgPlayerOne.setImageResource(R.drawable.x);
+        imgPlayerTwo.setImageResource(R.drawable.o);
 
         //click menu
         onMenu();
 
+        //select Item navigation
+        selectedItemNavigation();
+
+    }
+
+    private void selectedItemNavigation() {
+        NavigationView navigationView = new NavigationView(TwoPlayersActivity.this);
+        navigationView = (NavigationView) findViewById(R.id.navigation_two);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_newgame:
+                        Toast.makeText(TwoPlayersActivity.this,"New Game",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_width:
+                        Toast.makeText(TwoPlayersActivity.this,"Width Game",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_confirm:
+                        Toast.makeText(TwoPlayersActivity.this,"Confirm Game",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_quit:
+                        Toast.makeText(TwoPlayersActivity.this,"Quit Game!",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void onMenu() {
@@ -60,6 +95,8 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         textViewmode = (TextView) findViewById(R.id.tv_mode);
         ibtnMenu = (ImageButton)findViewById(R.id.ibtn_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        imgPlayerOne = (ImageView) findViewById(R.id.img_player_one);
+        imgPlayerTwo = (ImageView) findViewById(R.id.img_player_two);
     }
 
     @Override

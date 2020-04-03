@@ -22,37 +22,39 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                app:layout_constraintWidth_percent="0.4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="25dp">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                app:layout_constraintWidth_percent="0.4"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:layout_marginLeft="25dp">-->
 
-                <include layout="@layout/player"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+<!--                <include layout="@layout/player_one"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                app:layout_constraintWidth_percent="0.4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="25dp">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                app:layout_constraintWidth_percent="0.4"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:layout_marginRight="25dp">-->
 
-                <include layout="@layout/player"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+<!--                <include layout="@layout/player_two"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <include layout="@layout/player"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

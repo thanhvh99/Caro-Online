@@ -6,8 +6,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -20,8 +23,8 @@ import com.mobile.caro.R;
 public class OnePlayerActivity extends AbstractPlayActivity {
     private ImageButton ibtnMenu, ibtn_replay;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationOnePlayer;
-    private TextView textViewLevel;
+    private TextView textViewLevel, tvPlayerOne, tvPlayerTwo;
+    private ImageView imgPlayerOne, imgPlayerTwo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,8 +41,48 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         //đánh lại
         re_play();
 
-        //set text
+        //set text, quân cờ
         textViewLevel.setText("Độ khó");
+        imgPlayerOne.setImageResource(R.drawable.o);
+        imgPlayerTwo.setImageResource(R.drawable.x);
+
+        //select Item navigation
+        selectedItemNavigation();
+
+    }
+
+    private void selectedItemNavigation() {
+        NavigationView navigationView = new NavigationView(OnePlayerActivity.this);
+        navigationView = (NavigationView) findViewById(R.id.navigation_one);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_easy:
+                        Toast.makeText(OnePlayerActivity.this,"Easy Level!",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_medium:
+                        Toast.makeText(OnePlayerActivity.this,"Medium Level!",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_hard:
+                        Toast.makeText(OnePlayerActivity.this,"Hard Level",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_width:
+                        Toast.makeText(OnePlayerActivity.this,"Width",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_type_of_chess:
+                        Toast.makeText(OnePlayerActivity.this,"Quân cờ",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_confirm:
+                        Toast.makeText(OnePlayerActivity.this,"Confirm",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.menu_quit:
+                        Toast.makeText(OnePlayerActivity.this,"Quit!",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void re_play() {
@@ -65,8 +108,11 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         ibtnMenu = (ImageButton)findViewById(R.id.ibtn_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         ibtn_replay = (ImageButton) findViewById(R.id.ibtn_replay);
-        navigationOnePlayer = (NavigationView)findViewById(R.id.navigation_one);
         textViewLevel = (TextView) findViewById(R.id.tv_mode);
+        tvPlayerOne = (TextView) findViewById(R.id.tv_player_one);
+        tvPlayerTwo = (TextView) findViewById(R.id.tv_player_two);
+        imgPlayerOne = (ImageView) findViewById(R.id.img_player_one);
+        imgPlayerTwo = (ImageView) findViewById(R.id.img_player_two);
     }
 
     @Override

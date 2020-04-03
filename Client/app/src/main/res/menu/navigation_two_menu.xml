@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Trò chơi mới"/>
+    <item
+        android:id="@+id/menu_newgame"
+        android:title="Trò chơi mới"/>
 
     <item android:title="Cài đặt">
         <menu>
-            <item android:title="Độ rộng"/>
-            <item android:title="Xác nhận trước khi đánh"/>
+            <item
+                android:id="@+id/menu_width"
+                android:title="Độ rộng"/>
+
+            <item
+                android:id="@+id/menu_confirm"
+                android:title="Xác nhận trước khi đánh"/>
         </menu>
 
     </item>
 
-    <item android:title="Thoát"/>
+    <item
+        android:id="@+id/menu_quit"
+        android:title="Thoát"/>
 </menu>

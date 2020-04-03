@@ -26,7 +26,7 @@ public class MainOnlineActivity extends Activity {
         mapping();
 
         // nhap
-        openLogIn();
+        dialogLogIn();
 
     }
 

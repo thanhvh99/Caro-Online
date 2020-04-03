@@ -4,20 +4,36 @@
     <item android:title="Trò chơi mới">
         <menu>
             <item
-                android:id="@+id/easy"
+                android:id="@+id/menu_easy"
                 android:title="Dễ"/>
-            <item android:title="Trung bình"/>
-            <item android:title="Khó"/>
+
+            <item
+                android:id="@+id/menu_medium"
+                android:title="Trung bình"/>
+
+            <item
+                android:id="@+id/menu_hard"
+                android:title="Khó"/>
         </menu>
     </item>
 
     <item android:title="Cài đặt">
         <menu>
-            <item android:title="Độ rộng"/>
-            <item android:title="Quân cờ của người chơi"/>
-            <item android:title="Xác nhận trước khi đánh"/>
+            <item
+                android:id="@+id/menu_width"
+                android:title="Độ rộng"/>
+
+            <item
+                android:id="@+id/menu_type_of_chess"
+                android:title="Quân cờ của người chơi"/>
+
+            <item
+                android:id="@+id/menu_confirm"
+                android:title="Xác nhận trước khi đánh"/>
         </menu>
     </item>
 
-    <item android:title="Thoát"/>
+    <item
+        android:id="@+id/menu_quit"
+        android:title="Thoát"/>
 </menu>
