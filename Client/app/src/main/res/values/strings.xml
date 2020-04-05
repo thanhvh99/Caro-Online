@@ -16,4 +16,5 @@
     <string name="btn_play_with_human">Hai người chơi</string>
     <string name="btn_play_online">Chơi online</string>
     <string name="btn_back">Thoát</string>
+    <string name="you_must_login_to_continue">You must login to continue</string>
 </resources>

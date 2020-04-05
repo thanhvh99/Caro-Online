@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.mobile.caro.OnePlayerActivity.OnePlayerActivity;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOfflineActivity.TwoPlayersActivity;
-import com.mobile.caro.TwoPlayersOnlineActivity.MainOnlineActivity;
+import com.mobile.caro.TwoPlayersOnlineActivity.Activity.MainOnlineActivity;
 
 public class ModeFragment extends Fragment {
 

@@ -6,8 +6,9 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
-public abstract class AbstractPlayActivity extends Activity {
+public abstract class AbstractPlayActivity extends FragmentActivity {
 
     protected BoardViewer boardViewer;
     protected Board board;
