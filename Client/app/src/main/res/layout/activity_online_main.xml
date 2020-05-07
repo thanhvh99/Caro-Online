@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout android:id="@+id/drawerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
+            android:src="@drawable/ic_menu"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/duel"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/menu"
+            app:layout_constraintTop_toTopOf="@id/menu"
+            app:layout_constraintBottom_toBottomOf="@id/menu" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/menu"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/shadow"
+            app:layout_constraintTop_toBottomOf="@id/menu" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:alpha="0.5" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/headerImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/drawer_header"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/user0"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="@id/headerImage"
+                app:layout_constraintBottom_toTopOf="@id/username"
+                app:layout_constraintStart_toStartOf="@id/headerImage"
+                app:layout_constraintEnd_toEndOf="@id/headerImage" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toTopOf="@id/elo"
+                app:layout_constraintStart_toStartOf="@id/userImage"
+                app:layout_constraintEnd_toEndOf="@id/userImage" />
+
+            <TextView
+                android:id="@+id/elo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_trophy_white"
+                android:drawableStart="@drawable/ic_trophy_white"
+                android:drawablePadding="5dp"
+                android:text="@string/elo"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/headerImage"
+                app:layout_constraintStart_toStartOf="@id/userImage"
+                app:layout_constraintEnd_toEndOf="@id/userImage" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/headerImage"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/duel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="16dp"
+                        android:paddingHorizontal="24dp"
+                        android:drawablePadding="24dp"
+                        android:drawableStart="@drawable/ic_board"
+                        android:drawableLeft="@drawable/ic_board"
+                        android:text="@string/duel"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/challenge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="16dp"
+                        android:paddingHorizontal="24dp"
+                        android:drawablePadding="24dp"
+                        android:drawableStart="@drawable/ic_group"
+                        android:drawableLeft="@drawable/ic_group"
+                        android:text="@string/challenge"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toBottomOf="@id/duel" />
+
+                    <TextView
+                        android:id="@+id/leaderboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="24dp"
+                        android:drawableStart="@drawable/ic_podium"
+                        android:drawableLeft="@drawable/ic_podium"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="16dp"
+                        android:text="@string/leaderboard"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/challenge" />
+
+                    <TextView
+                        android:id="@+id/statistic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="16dp"
+                        android:paddingHorizontal="24dp"
+                        android:drawablePadding="24dp"
+                        android:drawableStart="@drawable/ic_statistic"
+                        android:drawableLeft="@drawable/ic_statistic"
+                        android:textSize="20sp"
+                        android:text="@string/statistic"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/leaderboard" />
+
+                    <View
+                        android:id="@+id/seperateLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintTop_toBottomOf="@id/statistic" />
+
+                    <TextView
+                        android:id="@+id/feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="24dp"
+                        android:textSize="20sp"
+                        android:text="@string/feedback"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
+
+                    <TextView
+                        android:id="@+id/settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="24dp"
+                        android:textSize="20sp"
+                        android:text="@string/settings"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/feedback" />
+
+                    <TextView
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="24dp"
+                        android:textSize="20sp"
+                        android:text="@string/logout"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/settings" />
+
+                    <View
+                        android:id="@+id/seperateLine2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintTop_toBottomOf="@id/logout" />
+
+                    <TextView
+                        android:id="@+id/back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingVertical="12dp"
+                        android:paddingHorizontal="24dp"
+                        android:textSize="20sp"
+                        android:text="@string/back"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/seperateLine2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

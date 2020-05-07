@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobile.caro">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,10 +21,13 @@
         </activity>
 
         <activity android:name=".OnePlayerActivity.OnePlayerActivity" />
-
-        <activity android:name=".TwoPlayersOnlineActivity.MainOnlineActivity" />
-
         <activity android:name=".TwoPlayersOfflineActivity.TwoPlayersActivity" />
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.MainOnlineActivity" />
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.HostRoomOnlineActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.JoinRoomOnlineActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.PlayOnlineActivity" />
 
     </application>
 
