@@ -19,9 +19,6 @@ public interface UserAPI {
         @SerializedName("success")
         public boolean success;
 
-        @SerializedName("token")
-        public String token;
-
         @SerializedName("message")
         public String message;
     }

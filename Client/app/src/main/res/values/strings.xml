@@ -1,4 +1,11 @@
 <resources>
+
+    <string-array name="timelapse_choices">
+        <item>15 seconds</item>
+        <item>20 seconds</item>
+        <item>25 seconds</item>
+    </string-array>
+
     <string name="app_name">Caro Online</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
@@ -6,15 +13,52 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="play">Chơi</string>
-    <string name="settings">Cài đặt</string>
     <string name="quit">Thoát</string>
     <string name="btn_play_with_computer">Chơi với máy</string>
     <string name="btn_play_with_human">Hai người chơi</string>
     <string name="btn_play_online">Chơi online</string>
     <string name="btn_back">Thoát</string>
+    <string name="back">Back</string>
+    <string name="elo">Elo</string>
+    <string name="rank">Rank</string>
+    <string name="keep_me_login">Keep me login</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="you_must_login_to_continue">You must login to continue</string>
+    <string name="authentication_error">Authentication error</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="duel">Duel</string>
+    <string name="statistic">Statistic</string>
+    <string name="number">Number</string>
+    <string name="challenge">Challenge</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="logout">Logout</string>
+    <string name="feedback">Feedback</string>
+    <string name="settings">Settings</string>
+    <string name="error_please_try_again">Error! Please try again</string>
+    <string name="confirm_password_does_not_match">Confirm password does not match</string>
+    <string name="error">Error</string>
+    <string name="lost_connection_to_server">Lost connection to server</string>
+    <string name="random_match">Random match</string>
+    <string name="create_room">Create room</string>
+    <string name="timelapse">Timelapse</string>
+    <string name="timelapse_15">15</string>
+    <string name="timelapse_20">20</string>
+    <string name="timelapse_30">30</string>
+    <string name="create">Create</string>
+    <string name="rooms">Rooms</string>
+    <string name="waiting_for_second_user">Waiting for second user</string>
+    <string name="save">Save</string>
+    <string name="join">Join</string>
+    <string name="room">Room</string>
+    <string name="warning">Warning</string>
+    <string name="host_has_left_the_room">Host has left the room</string>
+    <string name="you_have_been_kicked_by_the_host">You have been kicked by the host</string>
+    <string name="kick">Kick</string>
+    <string name="ready">Ready</string>
+    <string name="start">Start</string>
 </resources>

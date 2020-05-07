@@ -68,15 +68,15 @@ public class BoardViewer extends SurfaceView {
 
             linePaint = new Paint();
             linePaint.setColor(Color.BLACK);
-            linePaint.setStrokeWidth(surfaceSize.x / 200);
+            linePaint.setStrokeWidth(2);
 
             lastPaint = new Paint();
             lastPaint.setColor(Color.argb(255, 146, 39, 143));
-            lastPaint.setStrokeWidth(surfaceSize.x / 200);
+            lastPaint.setStrokeWidth(4);
 
             confirmPaint = new Paint();
             confirmPaint.setColor(Color.argb(255, 0, 161, 75));
-            confirmPaint.setStrokeWidth(surfaceSize.x / 200);
+            confirmPaint.setStrokeWidth(4);
 
             scale(1);
             setOnTouchListener(onTouchListener);
@@ -135,7 +135,9 @@ public class BoardViewer extends SurfaceView {
                 break;
             case MODE_MOVE:
                 PointF last = tracker.get(id);
-                addOffset(last.x - x, last.y - y);
+                offset.x += last.x - x;
+                offset.y += last.y - y;
+                limitOffset();
                 last.set(x, y);
                 break;
             case MODE_SCALE:
@@ -173,19 +175,13 @@ public class BoardViewer extends SurfaceView {
     }
 
     private void scale(float value) {
-        blockSize *= value;
+        blockSize = Math.max(surfaceSize.x / board.getSize(), blockSize * value);
         markPadding = blockSize / 8;
         markSize = blockSize - markPadding * 2;
     }
 
     private float distance(PointF p1, PointF p2) {
         return (float) Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
-    }
-
-    private void addOffset(float x, float y) {
-        offset.x += x;
-        offset.y += y;
-        limitOffset();
     }
 
     private void resetOffset() {
