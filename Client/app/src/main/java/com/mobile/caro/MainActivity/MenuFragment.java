@@ -13,12 +13,6 @@ import com.mobile.caro.R;
 
 public class MenuFragment extends Fragment {
 
-    private MainActivity activity;
-
-    public MenuFragment(MainActivity activity) {
-        this.activity = activity;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,7 +21,7 @@ public class MenuFragment extends Fragment {
         view.findViewById(R.id.btn_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeModeFragment();
+                ((MainActivity) getActivity()).changeModeFragment();
             }
         });
 
@@ -41,7 +35,7 @@ public class MenuFragment extends Fragment {
         view.findViewById(R.id.btn_quit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.finish();
+                getActivity().finish();
                 System.exit(0);
             }
         });

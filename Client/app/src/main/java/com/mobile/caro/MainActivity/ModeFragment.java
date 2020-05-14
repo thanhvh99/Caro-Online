@@ -17,12 +17,6 @@ import com.mobile.caro.TwoPlayersOnlineActivity.Activity.MainOnlineActivity;
 
 public class ModeFragment extends Fragment {
 
-    private MainActivity activity;
-
-    public ModeFragment(MainActivity activity) {
-        this.activity = activity;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +25,7 @@ public class ModeFragment extends Fragment {
         view.findViewById(R.id.btn_play_with_computer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, OnePlayerActivity.class);
+                Intent intent = new Intent(getActivity(), OnePlayerActivity.class);
                 startActivity(intent);
             }
         });
@@ -39,7 +33,7 @@ public class ModeFragment extends Fragment {
         view.findViewById(R.id.btn_play_with_human).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, TwoPlayersActivity.class);
+                Intent intent = new Intent(getActivity(), TwoPlayersActivity.class);
                 startActivity(intent);
             }
         });
@@ -47,7 +41,7 @@ public class ModeFragment extends Fragment {
         view.findViewById(R.id.btn_play_online).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, MainOnlineActivity.class);
+                Intent intent = new Intent(getActivity(), MainOnlineActivity.class);
                 startActivity(intent);
             }
         });
@@ -55,7 +49,7 @@ public class ModeFragment extends Fragment {
         view.findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeMenuFragment();
+                ((MainActivity) getActivity()).changeMenuFragment();
             }
         });
         return view;

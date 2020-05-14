@@ -78,6 +78,12 @@ public class RoomsFragment extends Fragment {
         SocketHandler.off("delete", onDelete);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SocketHandler.emit("rooms");
+    }
+
     private void initialize() {
         rooms = new ArrayList<>();
         adapter = new Adapter(this, rooms);
@@ -148,7 +154,6 @@ public class RoomsFragment extends Fragment {
                 JSONArray array = (JSONArray) args[0];
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
-                    String username = object.getString("username");
                     Room room = new Room();
                     room.setPlayer(new Player(object.getString("username"), object.getString("imageUrl"), object.getString("elo")));
                     room.setTimelapse(object.getInt("timelapse"));

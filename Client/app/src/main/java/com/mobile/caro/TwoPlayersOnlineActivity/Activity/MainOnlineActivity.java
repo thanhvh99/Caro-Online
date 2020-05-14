@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
@@ -40,7 +41,6 @@ public class MainOnlineActivity extends FragmentActivity {
     private ChallengeFragment challengeFragment;
     private StatisticFragment statisticFragment;
     private LeaderboardFragment leaderboardFragment;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class MainOnlineActivity extends FragmentActivity {
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSharedPreferences("Login", Context.MODE_PRIVATE).edit().putString("Password", "").apply();
+                getSharedPreferences("Login", Context.MODE_PRIVATE).edit().putString("Password", "").commit();
                 SocketHandler.close();
                 finish();
             }

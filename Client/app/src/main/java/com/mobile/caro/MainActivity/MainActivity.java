@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        menuFragment = new MenuFragment(this);
-        modeFragment = new ModeFragment(this);
+        menuFragment = new MenuFragment();
+        modeFragment = new ModeFragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, menuFragment).commit();
     }
