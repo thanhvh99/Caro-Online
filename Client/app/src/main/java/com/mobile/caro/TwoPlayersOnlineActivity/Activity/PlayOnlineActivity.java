@@ -14,6 +14,7 @@ import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
+import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ResultDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Room;
 import com.mobile.caro.TwoPlayersOnlineActivity.Network.SocketHandler;
 
@@ -69,8 +70,7 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         SocketHandler.on("disconnect", onDisconnect);
         SocketHandler.on("turn", onTurn);
         SocketHandler.on("put", onPut);
-        SocketHandler.on("leave", onLeave);
-        SocketHandler.on("end", onEnd);
+        SocketHandler.on("win", onWin);
         SocketHandler.on("even", onEven);
     }
 
@@ -80,16 +80,14 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         SocketHandler.off("disconnect", onDisconnect);
         SocketHandler.off("turn", onTurn);
         SocketHandler.off("put", onPut);
-        SocketHandler.off("leave", onLeave);
-        SocketHandler.on("end", onEnd);
-        SocketHandler.on("even", onEven);
+        SocketHandler.off("win", onWin);
+        SocketHandler.off("even", onEven);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         SocketHandler.emit("leave");
-        System.out.println("ABC");
     }
 
     @Override
@@ -148,18 +146,6 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         }
     };
 
-    private Emitter.Listener onLeave = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(PlayOnlineActivity.this, "Leave", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    };
-
     private Emitter.Listener onDisconnect = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
@@ -172,27 +158,27 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         }
     };
 
-    private Emitter.Listener onEnd = new Emitter.Listener() {
+    private Emitter.Listener onWin = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(PlayOnlineActivity.this, "End", Toast.LENGTH_SHORT).show();
+            try {
+                JSONObject object = (JSONObject) args[0];
+                boolean win = object.getString("username").equals(SocketHandler.getPlayer().getUsername());
+                String message = getString(win ? R.string.congratulation_you_are_the_winner : R.string.try_harder_next_time);
+                if (object.has("message")) {
+                    message = object.getString("message");
                 }
-            });
+                new ResultDialog(getString(win ? R.string.win : R.string.lose), message).show(getSupportFragmentManager(), null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 
     private Emitter.Listener onEven = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(PlayOnlineActivity.this, "Even", Toast.LENGTH_SHORT).show();
-                }
-            });
+            new ResultDialog(getString(R.string.even), "").show(getSupportFragmentManager(), null);
         }
     };
 }

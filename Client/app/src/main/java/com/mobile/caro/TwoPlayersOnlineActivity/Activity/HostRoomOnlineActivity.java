@@ -102,9 +102,15 @@ public class HostRoomOnlineActivity extends FragmentActivity {
         _switch.setChecked(room.isRank());
         editText.setText(password);
 
-        userImage.setVisibility(View.GONE);
-        elo.setVisibility(View.GONE);
-        kick.setVisibility(View.GONE);
+        if (room.getPlayer() != null) {
+            username.setText(room.getPlayer().getUsername());
+            userImage.setImageResource(getResources().getIdentifier(room.getPlayer().getImageUrl(), "drawable", getPackageName()));
+            elo.setText(room.getPlayer().getElo());
+        } else {
+            userImage.setVisibility(View.GONE);
+            elo.setVisibility(View.GONE);
+            kick.setVisibility(View.GONE);
+        }
         save.setEnabled(false);
 
         ((TextView) findViewById(R.id.username1)).setText(SocketHandler.getPlayer().getUsername());

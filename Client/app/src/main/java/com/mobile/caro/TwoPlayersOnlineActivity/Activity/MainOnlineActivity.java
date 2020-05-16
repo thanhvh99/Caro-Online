@@ -2,6 +2,7 @@ package com.mobile.caro.TwoPlayersOnlineActivity.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,8 +16,10 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
+import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.InviteDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.LoginDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Player;
+import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Room;
 import com.mobile.caro.TwoPlayersOnlineActivity.Fragment.ChallengeFragment;
 import com.mobile.caro.TwoPlayersOnlineActivity.Fragment.RoomsFragment;
 import com.mobile.caro.TwoPlayersOnlineActivity.Fragment.LeaderboardFragment;
@@ -58,12 +61,18 @@ public class MainOnlineActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        SocketHandler.on("invite", onInvite);
+        SocketHandler.on("challenge", onChallenge);
+        SocketHandler.on("accept", onAccept);
         active = true;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        SocketHandler.off("invite", onInvite);
+        SocketHandler.off("challenge", onChallenge);
+        SocketHandler.off("accept", onAccept);
         active = false;
     }
 
@@ -201,6 +210,77 @@ public class MainOnlineActivity extends FragmentActivity {
                 }).show(getSupportFragmentManager(), null);
             } else {
                 finish();
+            }
+        }
+    };
+
+    private Emitter.Listener onChallenge = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            try {
+                JSONObject object = (JSONObject) args[0];
+                JSONObject host = object.getJSONObject("host");
+                JSONObject join = object.getJSONObject("join");
+                JSONObject room = object.getJSONObject("room");
+
+                Player player;
+                if (host.getString("username").equals(SocketHandler.getPlayer().getUsername())) {
+                    player = new Player(join.getString("username"), join.getString("imageUrl"), join.getString("elo"));
+                } else {
+                    player = new Player(host.getString("username"), host.getString("imageUrl"), host.getString("elo"));
+                }
+
+                Room data = new Room();
+                data.setPlayer(player);
+                data.setTimelapse(room.getInt("timelapse"));
+                data.setPassword(false);
+                data.setRank(room.getBoolean("rank"));
+
+                if (host.getString("username").equals(SocketHandler.getPlayer().getUsername())) {
+                    Intent intent = new Intent(MainOnlineActivity.this, HostRoomOnlineActivity.class);
+                    intent.putExtra("room", data);
+                    intent.putExtra("password", "");
+                    startActivity(intent);
+                    return;
+                }
+
+                Intent intent = new Intent(MainOnlineActivity.this, JoinRoomOnlineActivity.class);
+                intent.putExtra("room", data);
+                startActivity(intent);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Emitter.Listener onInvite = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            try {
+                JSONObject object = (JSONObject) args[0];
+                Player player = new Player(object.getString("username"), object.getString("imageUrl"), object.getString("elo"));
+                new InviteDialog(player).show(getSupportFragmentManager(), null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Emitter.Listener onAccept = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            try {
+                JSONObject object = (JSONObject) args[0];
+                final String message = object.getString("message");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainOnlineActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     };

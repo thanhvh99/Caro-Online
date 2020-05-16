@@ -134,6 +134,7 @@ public class JoinRoomOnlineActivity extends FragmentActivity {
             new WarningDialog(getString(R.string.host_has_left_the_room), new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
+                    SocketHandler.emit("leave");
                     finish();
                 }
             }).show(getSupportFragmentManager(), null);

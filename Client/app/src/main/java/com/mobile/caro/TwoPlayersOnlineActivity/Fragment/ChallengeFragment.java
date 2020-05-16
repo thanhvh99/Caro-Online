@@ -46,9 +46,9 @@ public class ChallengeFragment extends Fragment {
         super.onStart();
         SocketHandler.on("player", onPlayer);
         SocketHandler.on("players", onPlayers);
-
         if (SocketHandler.isAuthenticated()) {
             SocketHandler.emit("players");
+            System.out.println("Emit players");
         } else {
             SocketHandler.once("authenticated", onAuthenticated);
         }
@@ -64,10 +64,11 @@ public class ChallengeFragment extends Fragment {
     private Emitter.Listener onPlayer = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+            System.out.println("On player");
             try {
                 JSONObject object = (JSONObject) args[0];
+                String username = object.getString("username");
                 if (object.getBoolean("busy")) {
-                    String username = object.getString("username");
                     for (int i = 0; i < players.size(); i++) {
                         if (players.get(i).getUsername().equals(username)) {
                             players.remove(i);
@@ -75,7 +76,16 @@ public class ChallengeFragment extends Fragment {
                         }
                     }
                 } else {
-                    players.add(new Player(object.getString("username"), object.getString("imageUrl"), object.getString("elo")));
+                    boolean contain = false;
+                    for (int i = 0; i < players.size(); i++) {
+                        if (players.get(i).getUsername().equals(username)) {
+                            contain = true;
+                            break;
+                        }
+                    }
+                    if (!contain) {
+                        players.add(new Player(object.getString("username"), object.getString("imageUrl"), object.getString("elo")));
+                    }
                 }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -92,10 +102,10 @@ public class ChallengeFragment extends Fragment {
     private Emitter.Listener onPlayers = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+            System.out.println("On players");
             players.clear();
             try {
                 JSONArray array = (JSONArray) args[0];
-                System.out.println(array);
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
                     players.add(new Player(object.getString("username"), object.getString("imageUrl"), object.getString("elo")));
@@ -116,6 +126,7 @@ public class ChallengeFragment extends Fragment {
         @Override
         public void call(Object... args) {
             SocketHandler.emit("players");
+            System.out.println("Authenticated emit players");
         }
     };
 
@@ -125,8 +136,7 @@ public class ChallengeFragment extends Fragment {
         private Fragment fragment;
         private View.OnClickListener onClickListener;
 
-        Adapter(Fragment fragment, final List<Player> players)
-        {
+        Adapter(Fragment fragment, final List<Player> players) {
             this.fragment = fragment;
             this.players = players;
             onClickListener = new View.OnClickListener() {
@@ -138,7 +148,7 @@ public class ChallengeFragment extends Fragment {
                         int index = listView.getPositionForView(item);
                         JSONObject object = new JSONObject();
                         object.put("username", players.get(index).getUsername());
-                        SocketHandler.emit("challenge", object);
+                        SocketHandler.emit("invite", object);
                         v.setEnabled(false);
                         new CountDownTimer(5000, 1000) {
                             @Override
