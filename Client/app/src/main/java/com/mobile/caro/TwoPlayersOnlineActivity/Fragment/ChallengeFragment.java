@@ -48,7 +48,6 @@ public class ChallengeFragment extends Fragment {
         SocketHandler.on("players", onPlayers);
         if (SocketHandler.isAuthenticated()) {
             SocketHandler.emit("players");
-            System.out.println("Emit players");
         } else {
             SocketHandler.once("authenticated", onAuthenticated);
         }
@@ -64,7 +63,6 @@ public class ChallengeFragment extends Fragment {
     private Emitter.Listener onPlayer = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            System.out.println("On player");
             try {
                 JSONObject object = (JSONObject) args[0];
                 String username = object.getString("username");
@@ -102,7 +100,6 @@ public class ChallengeFragment extends Fragment {
     private Emitter.Listener onPlayers = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            System.out.println("On players");
             players.clear();
             try {
                 JSONArray array = (JSONArray) args[0];
@@ -126,7 +123,6 @@ public class ChallengeFragment extends Fragment {
         @Override
         public void call(Object... args) {
             SocketHandler.emit("players");
-            System.out.println("Authenticated emit players");
         }
     };
 

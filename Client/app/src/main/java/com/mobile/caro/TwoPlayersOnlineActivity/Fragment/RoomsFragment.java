@@ -63,7 +63,6 @@ public class RoomsFragment extends Fragment {
 
         if (SocketHandler.isAuthenticated()) {
             SocketHandler.emit("rooms");
-            System.out.println("Emit rooms");
         } else {
             SocketHandler.once("authenticated", onAuthenticated);
         }
@@ -144,7 +143,6 @@ public class RoomsFragment extends Fragment {
         @Override
         public void call(Object... args) {
             rooms.clear();
-            System.out.println("On rooms");
             try {
                 JSONArray array = (JSONArray) args[0];
                 for (int i = 0; i < array.length(); i++) {
@@ -195,7 +193,6 @@ public class RoomsFragment extends Fragment {
     private Emitter.Listener onRoom = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            System.out.println("On room");
             try {
                 JSONObject object = (JSONObject) args[0];
                 String username = object.getString("username");
@@ -229,7 +226,6 @@ public class RoomsFragment extends Fragment {
         @Override
         public void call(Object... args) {
             SocketHandler.emit("rooms");
-            System.out.println("Authenticated emit rooms");
         }
     };
 

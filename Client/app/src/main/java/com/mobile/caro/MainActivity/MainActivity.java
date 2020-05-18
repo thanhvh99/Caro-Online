@@ -3,6 +3,7 @@ package com.mobile.caro.MainActivity;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import com.mobile.caro.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
     private MenuFragment menuFragment;
     private ModeFragment modeFragment;

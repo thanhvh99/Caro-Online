@@ -1,73 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:openDrawer="left"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/easy"
+                android:textColor="@android:color/black"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/undo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_undo"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/shadow"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <com.mobile.caro.Board.BoardViewer
+            android:id="@+id/boardViewer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/shadow"
+            app:layout_constraintBottom_toTopOf="@id/seperateLine"/>
+
+        <View
+            android:id="@+id/seperateLine"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/playerLayout"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/playerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <LinearLayout
+                android:id="@+id/player1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:weightSum="1"
+                android:gravity="center_vertical"
+                android:background="@drawable/background_player"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/mark0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/o" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/player2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:weightSum="1"
+                android:gravity="center_vertical"
+                android:background="@drawable/background_player"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/computer"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/mark1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/x" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/toolbar" />
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/banner"
+                android:adjustViewBounds="true"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.mobile.caro.BoardViewer
-                android:id="@+id/boardViewer"
-                app:layout_constraintHeight_percent="0.7"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@id/banner" />
+
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/banner"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                app:layout_constraintWidth_percent="0.4"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_marginLeft="25dp">-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-<!--                <include layout="@layout/player_one"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
+                    <TextView
+                        android:id="@+id/newGame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NavigationTitle"
+                        android:text="@string/new_game"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <TextView
+                        android:id="@+id/easy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NavigationContent"
+                        android:text="@string/easy"
+                        app:layout_constraintTop_toBottomOf="@id/newGame" />
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                app:layout_constraintWidth_percent="0.4"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_marginRight="25dp">-->
+                    <TextView
+                        android:id="@+id/normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NavigationContent"
+                        android:text="@string/normal"
+                        app:layout_constraintTop_toBottomOf="@id/easy" />
 
-<!--                <include layout="@layout/player_two"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
+                    <TextView
+                        android:id="@+id/hard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NavigationContent"
+                        android:text="@string/hard"
+                        app:layout_constraintTop_toBottomOf="@id/normal" />
 
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <View
+                        android:id="@+id/seperateLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintTop_toBottomOf="@id/hard" />
 
-            <include layout="@layout/player"/>
+                    <TextView
+                        android:id="@+id/settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NavigationTitle"
+                        android:text="@string/settings"
+                        app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
+
+                    <TextView
+                        android:id="@+id/mapSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/map_size"
+                        style="@style/NavigationContent"
+                        app:layout_constraintTop_toBottomOf="@id/settings" />
+
+                    <TextView
+                        android:id="@+id/mapSizeText"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/color_asbestos"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        app:layout_constraintTop_toTopOf="@id/mapSize"
+                        app:layout_constraintBottom_toBottomOf="@id/mapSize"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/playerMarker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/player_mark"
+                        style="@style/NavigationContent"
+                        app:layout_constraintTop_toBottomOf="@id/mapSize" />
+
+                    <ImageView
+                        android:id="@+id/playerMarkerImage"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/x"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintTop_toTopOf="@id/playerMarker"
+                        app:layout_constraintBottom_toBottomOf="@id/playerMarker"
+                        app:layout_constraintEnd_toEndOf="@id/mapSizeText"
+                        app:layout_constraintStart_toStartOf="@id/mapSizeText"/>
+
+                    <TextView
+                        android:id="@+id/confirmMove"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm_move"
+                        style="@style/NavigationContent"
+                        app:layout_constraintTop_toBottomOf="@id/playerMarker" />
+
+                    <CheckBox
+                        android:id="@+id/confirmMoveCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        app:layout_constraintTop_toTopOf="@id/confirmMove"
+                        app:layout_constraintBottom_toBottomOf="@id/confirmMove"
+                        app:layout_constraintStart_toStartOf="@id/mapSizeText"
+                        app:layout_constraintEnd_toEndOf="@id/mapSizeText" />
+
+                    <View
+                        android:id="@+id/seperateLine4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintTop_toBottomOf="@id/confirmMove" />
+
+                    <TextView
+                        android:id="@+id/back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="16dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="@string/back"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black"
+                        app:layout_constraintTop_toBottomOf="@id/seperateLine4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navigation_drawer_one_player"
-        app:menu="@menu/navigation_one_menu">
 
     </com.google.android.material.navigation.NavigationView>
 

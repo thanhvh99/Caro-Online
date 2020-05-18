@@ -1,4 +1,4 @@
-package com.mobile.caro;
+package com.mobile.caro.Board;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,12 +15,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import com.mobile.caro.AbstractPlayActivity;
+import com.mobile.caro.BitmapManager;
+
 public class BoardViewer extends SurfaceView {
 
-    private static final int MODE_TOUCH = 0;
-    private static final int MODE_MOVE = 1;
-    private static final int MODE_SCALE = 2;
-    private static final int MODE_WAIT = 3;
+    private enum Mode {
+        TOUCH, MOVE, SCALE, WAIT
+    }
 
     private float blockSize;
     private float markSize;
@@ -33,7 +35,7 @@ public class BoardViewer extends SurfaceView {
     private PointF surfaceSize = new PointF();
     private PointF offset = new PointF(0, 0);
     private Board board;
-    private int touchMode = 0;
+    private Mode mode = Mode.TOUCH;
 
     private Paint linePaint;
     private Paint lastPaint;
@@ -116,7 +118,7 @@ public class BoardViewer extends SurfaceView {
         int id = event.getPointerId(index);
         tracker.put(id, new PointF(event.getX(index), event.getY(index)));
         if (tracker.size() == 2) {
-            touchMode = MODE_SCALE;
+            mode = Mode.SCALE;
         }
     }
 
@@ -126,21 +128,21 @@ public class BoardViewer extends SurfaceView {
         float x = event.getX(index);
         float y = event.getY(index);
 
-        switch (touchMode) {
-            case MODE_TOUCH:
+        switch (mode) {
+            case TOUCH:
                 if (distance(tracker.get(id), new PointF(x, y)) > blockSize / 2f) {
-                    touchMode = MODE_MOVE;
+                    mode = Mode.MOVE;
                     tracker.get(id).set(x, y);
                 }
                 break;
-            case MODE_MOVE:
+            case MOVE:
                 PointF last = tracker.get(id);
                 offset.x += last.x - x;
                 offset.y += last.y - y;
                 limitOffset();
                 last.set(x, y);
                 break;
-            case MODE_SCALE:
+            case SCALE:
                 float lastDistance = distance(tracker.valueAt(0), tracker.valueAt(1));
                 tracker.get(id).set(x, y);
                 float currentDistance = distance(tracker.valueAt(0), tracker.valueAt(1));
@@ -160,16 +162,18 @@ public class BoardViewer extends SurfaceView {
         float x = event.getX(index);
         float y = event.getY(index);
         tracker.delete(id);
-        switch (touchMode) {
-            case MODE_SCALE:
-                touchMode = MODE_WAIT;
+        switch (mode) {
+            case SCALE:
+                mode = Mode.WAIT;
                 break;
-            case MODE_MOVE:
-            case MODE_WAIT:
-                touchMode = MODE_TOUCH;
+            case MOVE:
+            case WAIT:
+                mode = Mode.TOUCH;
                 break;
-            case MODE_TOUCH:
-                activity.onTileSelected((int) ((x + offset.x) / blockSize), (int) ((y + offset.y) / blockSize));
+            case TOUCH:
+                if (activity != null) {
+                    activity.onTileSelected((int) ((x + offset.x) / blockSize), (int) ((y + offset.y) / blockSize));
+                }
                 break;
         }
     }
@@ -220,7 +224,7 @@ public class BoardViewer extends SurfaceView {
             RectF rect = new RectF();
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    if (matrix[i][j] == Board.VALUE_EMPTY) {
+                    if (matrix[i][j] == Board.VALUE_BLANK) {
                         continue;
                     }
                     float x = j * blockSize + markPadding - offset.x;

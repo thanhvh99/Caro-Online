@@ -1,152 +1,155 @@
 package com.mobile.caro.TwoPlayersOfflineActivity;
 
-import android.graphics.PointF;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.navigation.NavigationView;
 import com.mobile.caro.AbstractPlayActivity;
-import com.mobile.caro.Board;
+import com.mobile.caro.Board.Board;
 import com.mobile.caro.R;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 public class TwoPlayersActivity extends AbstractPlayActivity {
+
     private DrawerLayout drawerLayout;
-    private boolean isFirstPlayerTurn = true;
-    private TextView textViewmode;
-    private ImageButton ibtnMenu;
-    private ImageView imgPlayerOne, imgPlayerTwo;
+    private TextView mapSize;
+    private CheckBox confirmMove;
+    private LinearLayout player1;
+    private LinearLayout player2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two_players);
 
-        //loadProgress();
-        board = new Board(19);
-        setupBoardViewer();
-
-        //ánh xạ
         mapping();
-
-        //set chế độ chơi, quân cờ
-        textViewmode.setText("Chế độ 2 người chơi");
-        imgPlayerOne.setImageResource(R.drawable.x);
-        imgPlayerTwo.setImageResource(R.drawable.o);
-
-        //click menu
-        onMenu();
-
-        //select Item navigation
-        selectedItemNavigation();
-
+        initialize();
+        setupListener();
     }
 
-    private void selectedItemNavigation() {
-        NavigationView navigationView = new NavigationView(TwoPlayersActivity.this);
-        navigationView = (NavigationView) findViewById(R.id.navigation_two);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.menu_newgame:
-                        Toast.makeText(TwoPlayersActivity.this,"New Game",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_width:
-                        Toast.makeText(TwoPlayersActivity.this,"Width Game",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_confirm:
-                        Toast.makeText(TwoPlayersActivity.this,"Confirm Game",Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_quit:
-                        Toast.makeText(TwoPlayersActivity.this,"Quit Game!",Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
-            }
-        });
-    }
-
-    private void onMenu() {
-        ibtnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.LEFT);
-            }
-        });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences sharedPreferences = getSharedPreferences("multiplayer", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("width", Integer.parseInt(mapSize.getText().toString()));
+        editor.putBoolean("confirm", confirmMove.isChecked());
+        editor.apply();
     }
 
     private void mapping() {
-        textViewmode = (TextView) findViewById(R.id.tv_mode);
-        ibtnMenu = (ImageButton)findViewById(R.id.ibtn_menu);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        imgPlayerOne = (ImageView) findViewById(R.id.img_player_one);
-        imgPlayerTwo = (ImageView) findViewById(R.id.img_player_two);
+        drawerLayout = findViewById(R.id.drawerlayout);
+        mapSize = findViewById(R.id.mapSizeText);
+        confirmMove = findViewById(R.id.confirmMoveCheckBox);
+        player1 = findViewById(R.id.player1);
+        player2 = findViewById(R.id.player2);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //saveProgress();
+    private void initialize() {
+        SharedPreferences sharedPreferences = getSharedPreferences("multiplayer", MODE_PRIVATE);
+        int width = sharedPreferences.getInt("width", 15);
+        mapSize.setText(width + "");
+        board = new Board(width);
+        confirmMove.setChecked(sharedPreferences.getBoolean("confirm", false));
+        setupBoardViewer();
+        updatePlayerBackground();
     }
 
-    @Override
-    protected void onTileSelected(int x, int y) {
-        if (board.isEmptyAt(x, y)) {
-            if (boardViewer.getConfirmMove().equals(x, y)) {
-                board.setValueAt(x, y, isFirstPlayerTurn ? Board.VALUE_O : Board.VALUE_X);
-                isFirstPlayerTurn = !isFirstPlayerTurn;
-                boardViewer.removeConfirmMove();
-                boardViewer.setLastMove(x, y);
-            } else {
-                boardViewer.setConfirmMove(x, y);
+    private void setupListener() {
+        findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                board.undo();
+                boardViewer.draw();
             }
-        } else {
-            boardViewer.removeConfirmMove();
-        }
-        boardViewer.draw();
+        });
+
+        findViewById(R.id.newGame).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                setupBoardViewer();
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+        
+        findViewById(R.id.mapSize).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapSize.setText(mapSize.getText().equals("15") ? "19" : "15");
+                Toast.makeText(TwoPlayersActivity.this, R.string.settings_will_be_applied_in_new_game, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        findViewById(R.id.confirmMove).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmMove.setChecked(!confirmMove.isChecked());
+                if (!confirmMove.isChecked() && !boardViewer.getConfirmMove().equals(-1, -1)) {
+                    boardViewer.setConfirmMove(-1, -1);
+                    boardViewer.draw();
+                }
+            }
+        });
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
     }
 
-    private void saveProgress() {
-        try {
-            FileOutputStream fileOutputStream = openFileOutput("progress2.mob", MODE_PRIVATE);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(board.getMatrix());
-            objectOutputStream.writeBoolean(isFirstPlayerTurn);
-            objectOutputStream.close();
-            fileOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void updatePlayerBackground() {
+        player1.setEnabled(board.isFirstPlayerTurn());
+        player2.setEnabled(!board.isFirstPlayerTurn());
     }
 
-    private void loadProgress() {
-        try {
-            FileInputStream fileInputStream = openFileInput("progress2.mob");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            int[][] matrix = (int[][]) objectInputStream.readObject();
-            isFirstPlayerTurn = objectInputStream.readBoolean();
-            board = new Board(matrix);
-            objectInputStream.close();
-            fileInputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            board = new Board(Board.DEFAULT_SIZE);
+    @Override
+    public void onTileSelected(int x, int y) {
+        if (!board.isOngoing()) {
+            return;
+        }
+        if (confirmMove.isChecked()) {
+            if (!board.isEmptyAt(x, y)) {
+                boardViewer.setLastMove(-1, -1);
+                return;
+            }
+            if (!boardViewer.getConfirmMove().equals(x, y)) {
+                boardViewer.setConfirmMove(x, y);
+                return;
+            }
+        }
+
+        if (board.select(x, y)) {
+            updatePlayerBackground();
+            boardViewer.draw();
+            if (!board.isOngoing()) {
+                switch (board.getStatus()) {
+                    case P1_WIN: Toast.makeText(this, R.string.first_player_win, Toast.LENGTH_SHORT).show(); break;
+                    case P2_WIN: Toast.makeText(this, R.string.second_player_win, Toast.LENGTH_SHORT).show(); break;
+                    case EVEN: Toast.makeText(this, R.string.even, Toast.LENGTH_SHORT).show(); break;
+                }
+            }
         }
     }
 }

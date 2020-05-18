@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mobile.caro.AbstractPlayActivity;
-import com.mobile.caro.Board;
+import com.mobile.caro.Board.Board;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ResultDialog;
@@ -91,7 +90,7 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
     }
 
     @Override
-    protected void onTileSelected(int x, int y) {
+    public void onTileSelected(int x, int y) {
         if (isPlayerTurn) {
             try {
                 JSONObject object = new JSONObject();
@@ -137,7 +136,7 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
                 JSONObject object = (JSONObject) args[0];
                 int x = object.getInt("x");
                 int y = object.getInt("y");
-                board.setValueAt(x, y, object.getString("username").equals(SocketHandler.getPlayer().getUsername()) ? Board.VALUE_X : Board.VALUE_O);
+                board.select(x, y);
                 boardViewer.setLastMove(x, y);
                 boardViewer.draw();
             } catch (Exception e) {

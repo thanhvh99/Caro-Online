@@ -1,12 +1,13 @@
 package com.mobile.caro;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+
+import com.mobile.caro.Board.Board;
+import com.mobile.caro.Board.BoardViewer;
 
 public abstract class AbstractPlayActivity extends FragmentActivity {
 
@@ -23,7 +24,10 @@ public abstract class AbstractPlayActivity extends FragmentActivity {
         boardViewer = findViewById(R.id.boardViewer);
         boardViewer.setBoard(board);
         boardViewer.setActivity(this);
+        boardViewer.setConfirmMove(-1, -1);
+        boardViewer.setLastMove(-1, -1);
+        boardViewer.draw();
     }
 
-    protected abstract void onTileSelected(int x, int y);
+    public abstract void onTileSelected(int x, int y);
 }

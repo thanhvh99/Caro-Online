@@ -7,12 +7,6 @@
     </string-array>
 
     <string name="app_name">Caro Online</string>
-    <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="play">Chơi</string>
     <string name="quit">Thoát</string>
     <string name="btn_play_with_computer">Chơi với máy</string>
@@ -46,9 +40,6 @@
     <string name="random_match">Random match</string>
     <string name="create_room">Create room</string>
     <string name="timelapse">Timelapse</string>
-    <string name="timelapse_15">15</string>
-    <string name="timelapse_20">20</string>
-    <string name="timelapse_30">30</string>
     <string name="create">Create</string>
     <string name="rooms">Rooms</string>
     <string name="waiting_for_second_user">Waiting for second user</string>
@@ -71,4 +62,20 @@
     <string name="want_to_play_with_you">Want to play with you</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="computer">Computer</string>
+    <string name="player">Player</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="new_game">New game</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="map_size">Map size</string>
+    <string name="player_mark">Player mark</string>
+    <string name="confirm_move">Confirm move</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="settings_will_be_applied_in_new_game">Settings will be applied in new game</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="first_player_win">First player win</string>
+    <string name="second_player_win">Second player win</string>
 </resources>
