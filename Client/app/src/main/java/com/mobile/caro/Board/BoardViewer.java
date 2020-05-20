@@ -74,7 +74,7 @@ public class BoardViewer extends SurfaceView {
             linePaint.setStrokeWidth(2);
 
             lastPaint = new Paint();
-            lastPaint.setColor(Color.argb(255, 146, 39, 143));
+            lastPaint.setColor(Color.argb(255, 189, 195, 199));
             lastPaint.setStrokeWidth(4);
 
             confirmPaint = new Paint();
@@ -223,6 +223,12 @@ public class BoardViewer extends SurfaceView {
             int[][] matrix = board.getMatrix();
             int size = board.getSize();
             RectF rect = new RectF();
+            if (!lastMove.equals(-1, -1)) {
+                float x = lastMove.x * blockSize - offset.x;
+                float y = lastMove.y * blockSize - offset.y;
+                rect.set(x, y, x + blockSize, y + blockSize);
+                canvas.drawRect(rect, lastPaint);
+            }
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     if (matrix[i][j] == Board.VALUE_BLANK) {
@@ -244,15 +250,6 @@ public class BoardViewer extends SurfaceView {
             for (int i = 0; i <= size; i++) {
                 canvas.drawLine(i * blockSize - offset.x, -offset.y, i * blockSize - offset.x, size * blockSize - offset.y, linePaint);
                 canvas.drawLine(-offset.x, i * blockSize - offset.y, size * blockSize - offset.x, i * blockSize - offset.y, linePaint);
-            }
-            if (!lastMove.equals(-1, -1)) {
-                float x = lastMove.x * blockSize - offset.x;
-                float y = lastMove.y * blockSize - offset.y;
-                for (int i = 0; i < 2; i++) {
-                    for (int j = 0; j < 2; j++) {
-                        canvas.drawLine(x + i * blockSize, y + i * blockSize, x + j * blockSize, y + (1 - j) * blockSize, lastPaint);
-                    }
-                }
             }
             if (!confirmMove.equals(-1, -1)) {
                 float x = confirmMove.x * blockSize - offset.x;

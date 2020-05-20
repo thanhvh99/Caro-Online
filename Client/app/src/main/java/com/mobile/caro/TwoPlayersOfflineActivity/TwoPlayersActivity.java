@@ -72,12 +72,15 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
             public void onClick(View v) {
                 if (board.isOngoing()) {
                     board.undo();
+                    boardViewer.setLastMove(-1, -1);
                     boardViewer.draw();
                 } else {
                     undoImage.setImageResource(R.drawable.ic_undo);
                     board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                    updatePlayerBackground();
                     setupBoardViewer();
                 }
+                updatePlayerBackground();
             }
         });
 
@@ -104,7 +107,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
             public void onClick(View v) {
                 confirmMove.setChecked(!confirmMove.isChecked());
                 if (!confirmMove.isChecked() && !boardViewer.getConfirmMove().equals(-1, -1)) {
-                    boardViewer.setConfirmMove(-1, -1);
+                    boardViewer.removeConfirmMove();
                     boardViewer.draw();
                 }
             }
@@ -153,6 +156,8 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         }
 
         if (board.select(x, y)) {
+            boardViewer.setLastMove(x, y);
+            boardViewer.removeConfirmMove();
             updatePlayerBackground();
             boardViewer.draw();
             if (!board.isOngoing()) {

@@ -7,6 +7,13 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/grid"
+        android:alpha="0.5"
+        android:scaleType="centerCrop"/>
+
+    <ImageView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/guideline" />
 
         <Button
-            android:id="@+id/btn_quit"
+            android:id="@+id/quit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/online"

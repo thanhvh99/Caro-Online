@@ -179,9 +179,17 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/navigation_header_height"
+                android:src="@drawable/grid"
+                android:scaleType="centerCrop"
+                android:alpha="0.5"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/navigation_header_height"
                 android:src="@drawable/banner"
                 android:adjustViewBounds="true"
                 app:layout_constraintTop_toTopOf="parent" />

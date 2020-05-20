@@ -46,6 +46,10 @@ public class Board {
         return isInRange(x, y) && matrix[y][x] == VALUE_BLANK;
     }
 
+    public int getValueAt(int x, int y) {
+        return matrix[y][x];
+    }
+
     public boolean isOngoing() {
         return status == Status.ONGOING;
     }
@@ -92,7 +96,7 @@ public class Board {
         history.remove(history.size() - 1);
     }
 
-    private boolean checkBoard(int x, int y) {
+    public boolean checkBoard(int x, int y) {
         int count;
 
         // kiểm tra hàng ngang

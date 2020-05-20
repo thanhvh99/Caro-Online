@@ -98,7 +98,7 @@
         android:id="@+id/userCard2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginHorizontal="8dp"
         app:cardElevation="3dp"
         app:cardCornerRadius="5dp"
@@ -169,7 +169,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="8dp"
         android:layout_marginHorizontal="8dp"
         app:cardElevation="3dp"
         app:cardCornerRadius="5dp"
@@ -179,6 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
+            android:paddingBottom="5dp"
             android:focusableInTouchMode="true" >
 
             <TextView
