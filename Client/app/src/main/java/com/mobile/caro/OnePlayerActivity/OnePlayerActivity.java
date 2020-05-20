@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.mobile.caro.AI.Minimax;
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board.Board;
 import com.mobile.caro.R;
@@ -56,6 +55,13 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 boardViewer.draw();
             }
         });
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void mapping() {
@@ -70,9 +76,6 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     @Override
     public void onTileSelected(int x, int y) {
         if (board.select(x, y)) {
-            int[] move = new Minimax(board).calculateNextMove(3);
-            board.select(move[0], move[1]);
-            boardViewer.draw();
         }
     }
 

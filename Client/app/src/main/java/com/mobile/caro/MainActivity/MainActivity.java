@@ -6,40 +6,54 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.mobile.caro.OnePlayerActivity.OnePlayerActivity;
 import com.mobile.caro.R;
+import com.mobile.caro.TwoPlayersOfflineActivity.TwoPlayersActivity;
+import com.mobile.caro.TwoPlayersOnlineActivity.Activity.MainOnlineActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
-    private MenuFragment menuFragment;
-    private ModeFragment modeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initialize();
+        setupListener();
     }
 
-    private void initialize() {
-        menuFragment = new MenuFragment();
-        modeFragment = new ModeFragment();
+    private void setupListener() {
+        findViewById(R.id.computer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OnePlayerActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, menuFragment).commit();
-    }
+        findViewById(R.id.multiplayer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TwoPlayersActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    public void changeMenuFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, menuFragment).commit();
-    }
-
-    public void changeModeFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_content, modeFragment).commit();
+        findViewById(R.id.online).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainOnlineActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

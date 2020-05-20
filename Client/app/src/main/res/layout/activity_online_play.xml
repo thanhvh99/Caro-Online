@@ -8,7 +8,7 @@
         android:id="@+id/boardViewer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintBottom_toTopOf="@id/seperateLine2" />
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@android:color/darker_gray"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="8dp"
         app:layout_constraintBottom_toTopOf="@id/user1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

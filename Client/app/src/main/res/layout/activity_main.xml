@@ -15,11 +15,64 @@
         android:scaleType="centerInside"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fragment_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/banner"/>
+        app:layout_constraintTop_toBottomOf="@id/banner"
+        app:layout_constraintBottom_toBottomOf="parent" >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <Button
+            android:id="@+id/computer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_play_with_computer"
+            android:layout_margin="10dp"
+            style="@style/MenuButton"
+            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/multiplayer" />
+
+        <Button
+            android:id="@+id/multiplayer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/btn_play_with_human"
+            style="@style/MenuButton"
+            app:layout_constraintEnd_toEndOf="@id/computer"
+            app:layout_constraintStart_toStartOf="@id/computer"
+            app:layout_constraintBottom_toBottomOf="@id/guideline"/>
+
+        <Button
+            android:id="@+id/online"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/btn_play_online"
+            style="@style/MenuButton"
+            app:layout_constraintEnd_toEndOf="@id/computer"
+            app:layout_constraintStart_toStartOf="@id/computer"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <Button
+            android:id="@+id/btn_quit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/online"
+            app:layout_constraintStart_toStartOf="@id/computer"
+            app:layout_constraintEnd_toEndOf="@id/computer"
+            android:layout_marginTop="10dp"
+            android:text="@string/quit"
+            style="@style/MenuButton"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

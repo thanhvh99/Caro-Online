@@ -20,9 +20,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".OnePlayerActivity.OnePlayerActivity" />
-        <activity android:name=".TwoPlayersOfflineActivity.TwoPlayersActivity" />
-        <activity android:name=".TwoPlayersOnlineActivity.Activity.MainOnlineActivity" />
+        <activity android:name=".OnePlayerActivity.OnePlayerActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOfflineActivity.TwoPlayersActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.MainOnlineActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".TwoPlayersOnlineActivity.Activity.HostRoomOnlineActivity"
             android:launchMode="singleTop"/>
         <activity android:name=".TwoPlayersOnlineActivity.Activity.JoinRoomOnlineActivity"

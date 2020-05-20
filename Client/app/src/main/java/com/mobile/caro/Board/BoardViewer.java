@@ -36,6 +36,7 @@ public class BoardViewer extends SurfaceView {
     private PointF offset = new PointF(0, 0);
     private Board board;
     private Mode mode = Mode.TOUCH;
+    private boolean switchMarker = false;
 
     private Paint linePaint;
     private Paint lastPaint;
@@ -230,7 +231,14 @@ public class BoardViewer extends SurfaceView {
                     float x = j * blockSize + markPadding - offset.x;
                     float y = i * blockSize + markPadding - offset.y;
                     rect.set(x, y, x + markSize, y + markSize);
-                    canvas.drawBitmap(matrix[i][j] == Board.VALUE_O ? BitmapManager.getO() : BitmapManager.getX(), null, rect, null);
+                    switch (matrix[i][j]) {
+                        case Board.VALUE_O:
+                            canvas.drawBitmap(switchMarker ? BitmapManager.getX() : BitmapManager.getO(), null, rect, null);
+                            break;
+                        case Board.VALUE_X:
+                            canvas.drawBitmap(switchMarker ? BitmapManager.getO() : BitmapManager.getX(), null, rect, null);
+                            break;
+                    }
                 }
             }
             for (int i = 0; i <= size; i++) {
@@ -289,4 +297,7 @@ public class BoardViewer extends SurfaceView {
         this.activity = activity;
     }
 
+    public void setSwitchMarker(boolean switchMarker) {
+        this.switchMarker = switchMarker;
+    }
 }

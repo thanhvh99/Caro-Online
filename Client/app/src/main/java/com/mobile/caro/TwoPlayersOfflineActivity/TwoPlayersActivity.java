@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
     private CheckBox confirmMove;
     private LinearLayout player1;
     private LinearLayout player2;
+    private ImageView undoImage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         confirmMove = findViewById(R.id.confirmMoveCheckBox);
         player1 = findViewById(R.id.player1);
         player2 = findViewById(R.id.player2);
+        undoImage = findViewById(R.id.undo);
     }
 
     private void initialize() {
@@ -64,20 +67,27 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
     }
 
     private void setupListener() {
-        findViewById(R.id.undo).setOnClickListener(new View.OnClickListener() {
+        undoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                board.undo();
-                boardViewer.draw();
+                if (board.isOngoing()) {
+                    board.undo();
+                    boardViewer.draw();
+                } else {
+                    undoImage.setImageResource(R.drawable.ic_undo);
+                    board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                    setupBoardViewer();
+                }
             }
         });
 
         findViewById(R.id.newGame).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
                 setupBoardViewer();
-                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
         
@@ -131,11 +141,13 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         }
         if (confirmMove.isChecked()) {
             if (!board.isEmptyAt(x, y)) {
-                boardViewer.setLastMove(-1, -1);
+                boardViewer.removeConfirmMove();
+                boardViewer.draw();
                 return;
             }
             if (!boardViewer.getConfirmMove().equals(x, y)) {
                 boardViewer.setConfirmMove(x, y);
+                boardViewer.draw();
                 return;
             }
         }
@@ -149,6 +161,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
                     case P2_WIN: Toast.makeText(this, R.string.second_player_win, Toast.LENGTH_SHORT).show(); break;
                     case EVEN: Toast.makeText(this, R.string.even, Toast.LENGTH_SHORT).show(); break;
                 }
+                undoImage.setImageResource(R.drawable.ic_restart);
             }
         }
     }
