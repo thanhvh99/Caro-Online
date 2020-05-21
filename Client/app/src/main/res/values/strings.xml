@@ -78,4 +78,5 @@
     <string name="player_2">Player 2</string>
     <string name="first_player_win">First player win</string>
     <string name="second_player_win">Second player win</string>
+    <string name="switch_marker">Switch marker</string>
 </resources>

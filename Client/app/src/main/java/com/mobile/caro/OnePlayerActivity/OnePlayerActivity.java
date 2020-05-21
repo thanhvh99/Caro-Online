@@ -29,6 +29,9 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     private ImageView undoImage;
     private TextView mapSize;
     private TextView difficulty;
+    private ImageView playerMarker;
+    private ImageView mark1;
+    private ImageView mark2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,20 +72,17 @@ public class OnePlayerActivity extends AbstractPlayActivity {
             }
         });
 
+        findViewById(R.id.confirmMove).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmMove.setChecked(!confirmMove.isChecked());
+            }
+        });
+
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-
-        findViewById(R.id.easy).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                undoImage.setImageResource(R.drawable.ic_undo);
-                board = new Board(Integer.parseInt(mapSize.getText().toString()));
-                setupBoardViewer();
-                updatePlayerBackground();
             }
         });
 
@@ -94,11 +94,25 @@ public class OnePlayerActivity extends AbstractPlayActivity {
             }
         });
 
+        findViewById(R.id.easy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                undoImage.setImageResource(R.drawable.ic_undo);
+                board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                difficulty.setText(R.string.easy);
+                setupBoardViewer();
+                updatePlayerBackground();
+            }
+        });
+
         findViewById(R.id.normal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                difficulty.setText(R.string.normal);
                 setupBoardViewer();
                 updatePlayerBackground();
             }
@@ -107,10 +121,23 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         findViewById(R.id.hard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                difficulty.setText(R.string.hard);
                 setupBoardViewer();
                 updatePlayerBackground();
+            }
+        });
+
+        findViewById(R.id.playerMarker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boardViewer.setSwitchMarker(!boardViewer.isSwitchMarker());
+                playerMarker.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.o : R.drawable.x);
+                mark1.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.o : R.drawable.x);
+                mark2.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.x : R.drawable.o);
+                boardViewer.draw();
             }
         });
     }
@@ -124,6 +151,9 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         player2 = findViewById(R.id.player2);
         undoImage = findViewById(R.id.undo);
         difficulty = findViewById(R.id.difficulty);
+        playerMarker = findViewById(R.id.playerMarkerImage);
+        mark1 = findViewById(R.id.mark1);
+        mark2 = findViewById(R.id.mark2);
     }
 
     private void initialize() {

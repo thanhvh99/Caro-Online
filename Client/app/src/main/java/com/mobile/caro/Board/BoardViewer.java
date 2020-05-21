@@ -297,4 +297,8 @@ public class BoardViewer extends SurfaceView {
     public void setSwitchMarker(boolean switchMarker) {
         this.switchMarker = switchMarker;
     }
+
+    public boolean isSwitchMarker() {
+        return switchMarker;
+    }
 }

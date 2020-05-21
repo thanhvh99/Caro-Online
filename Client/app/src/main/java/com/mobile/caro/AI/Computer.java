@@ -5,6 +5,7 @@ import android.graphics.Point;
 import com.mobile.caro.Board.Board;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Computer {
 
@@ -80,7 +81,7 @@ public class Computer {
                         ePC++;
                     }
                 }
-                if (eHuman * ePC == 0 && eHuman != ePC)
+                if (eHuman * ePC == 0 && eHuman != ePC) {
                     for (int i = 0; i < 5; i++) {
                         if (board.getValueAt(col, row + i) == Board.VALUE_BLANK) {
                             if (eHuman == 0) {
@@ -100,8 +101,8 @@ public class Computer {
                             if (eHuman == 4 || ePC == 4)
                                 eBoard.EBoard[row + i][col] *= 2;
                         }
-
                     }
+                }
             }
         }
 
@@ -194,7 +195,7 @@ public class Computer {
             Point node = eBoard.maxPos();
             if (node != null) {
                 list.add(node);
-                eBoard.EBoard[node.y][node.x] = Board.VALUE_BLANK;
+                eBoard.EBoard[node.y][node.x] = 0;
             } else {
                 break;
             }
@@ -247,12 +248,93 @@ public class Computer {
     }
 
     public Point AI() {
-        minValue(0, 1, 0);
-        Point temp = goPoint;
-        if (temp != null) {
-            x = temp.x;
-            y = temp.y;
+        try {
+            Thread.sleep(new Random().nextInt(500) + 250);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return new Point(x, y);
+        Point attackMove = null;
+        Point defendMove = null;
+        int attackMax = 0;
+        int defendMax = 0;
+        int x;
+        int y;
+        for (y = 0; y < board.getSize(); y++) {
+            for (x = 0; x < board.getSize(); x++) {
+                if (board.getValueAt(x, y) == Board.VALUE_X) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (i == 0 && j == 0) {
+                                continue;
+                            }
+                            if (!board.isInRange(x - i, y - j)) {
+                                continue;
+                            }
+                            if (board.getValueAt(x - i, y - j) != Board.VALUE_BLANK) {
+                                continue;
+                            }
+                            int count = count(x, y, i, j);
+                            if (count >= defendMax) {
+                                defendMax = count;
+                                defendMove = new Point(x - i, y - j);
+                            }
+                        }
+                    }
+                } else if (board.getValueAt(x, y) == Board.VALUE_O) {
+                    for (int i = -1; i <= 1; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (i == 0 && j == 0) {
+                                continue;
+                            }
+                            if (!board.isInRange(x - i, y - j)) {
+                                continue;
+                            }
+                            if (board.getValueAt(x - i, y - j) != Board.VALUE_BLANK) {
+                                continue;
+                            }
+                            int count = count(x, y, i, j);
+                            if (count >= attackMax) {
+                                attackMax = count;
+                                attackMove = new Point(x - i, y - j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (defendMax > attackMax) {
+            if (defendMove != null) {
+                return defendMove;
+            }
+        } else {
+            if (attackMove != null) {
+                return attackMove;
+            }
+        }
+
+        Point result = new Point();
+        Random random = new Random();
+        do {
+            result.x = random.nextInt(board.getSize());
+            result.y = random.nextInt(board.getSize());
+        } while (board.getValueAt(result.x, result.y) != Board.VALUE_BLANK);
+        return result;
+    }
+
+    private int count(int x, int y, int dirX, int dirY) {
+        int result = 0;
+        int value = board.getValueAt(x, y);
+        for (int i = 0; i < 5; i++) {
+            if (!board.isInRange(x + dirX * i, y + dirY * i)) {
+                return result;
+            }
+            if (board.getValueAt(x + dirX * i, y + dirY * i) == value) {
+                result++;
+            } else {
+                return result;
+            }
+        }
+        return result;
     }
 }

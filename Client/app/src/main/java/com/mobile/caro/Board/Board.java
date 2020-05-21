@@ -1,5 +1,7 @@
 package com.mobile.caro.Board;
 
+import android.graphics.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,11 @@ public class Board {
     public Board(int size) {
         matrix = new int[size][size];
         availableMove = size * size;
+    }
+
+    public Point getLastMove() {
+        int value = history.get(history.size() - 1);
+        return new Point(value % matrix.length, value / matrix.length);
     }
 
     public Board(Board board) {
@@ -182,7 +189,7 @@ public class Board {
         return false;
     }
 
-    private boolean isInRange(int x, int y) {
+    public boolean isInRange(int x, int y) {
         return x >= 0 && x < matrix.length && y >= 0 && y < matrix.length;
     }
 

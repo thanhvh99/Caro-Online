@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,9 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
     private LinearLayout player1;
     private LinearLayout player2;
     private ImageView undoImage;
+    private CheckBox switchMarker;
+    private ImageView mark1;
+    private ImageView mark2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
         player1 = findViewById(R.id.player1);
         player2 = findViewById(R.id.player2);
         undoImage = findViewById(R.id.undo);
+        switchMarker = findViewById(R.id.switchMarkerCheckBox);
+        mark1 = findViewById(R.id.mark1);
+        mark2 = findViewById(R.id.mark2);
     }
 
     private void initialize() {
@@ -128,6 +135,27 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
                 } else {
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
+            }
+        });
+
+        findViewById(R.id.switchMarker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchMarker.setChecked(!switchMarker.isChecked());
+                boardViewer.setSwitchMarker(switchMarker.isChecked());
+                mark1.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.o : R.drawable.x);
+                mark2.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.x : R.drawable.o);
+                boardViewer.draw();
+            }
+        });
+
+        switchMarker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                boardViewer.setSwitchMarker(switchMarker.isChecked());
+                mark1.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.o : R.drawable.x);
+                mark2.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.x : R.drawable.o);
+                boardViewer.draw();
             }
         });
     }
