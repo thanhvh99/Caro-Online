@@ -30,7 +30,10 @@
             android:launchMode="singleTop"/>
         <activity android:name=".TwoPlayersOnlineActivity.Activity.JoinRoomOnlineActivity"
             android:launchMode="singleTop"/>
-        <activity android:name=".TwoPlayersOnlineActivity.Activity.PlayOnlineActivity" />
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.PlayOnlineActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.ImageSelectorActivity"
+            android:theme="@android:style/Theme.Holo.Dialog"/>
 
     </application>
 

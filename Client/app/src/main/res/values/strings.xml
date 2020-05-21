@@ -6,6 +6,37 @@
         <item>25 seconds</item>
     </string-array>
 
+    <string-array name="images">
+        <item>user0</item>
+        <item>user1</item>
+        <item>user2</item>
+        <item>user3</item>
+        <item>user4</item>
+        <item>user5</item>
+        <item>user6</item>
+        <item>user7</item>
+        <item>user8</item>
+        <item>user9</item>
+        <item>user10</item>
+        <item>user11</item>
+        <item>user12</item>
+        <item>user13</item>
+        <item>user14</item>
+        <item>user15</item>
+        <item>user16</item>
+        <item>user17</item>
+        <item>user18</item>
+        <item>user19</item>
+        <item>user20</item>
+        <item>user21</item>
+        <item>user22</item>
+        <item>user23</item>
+        <item>user24</item>
+        <item>user25</item>
+        <item>user26</item>
+        <item>user27</item>
+    </string-array>
+
     <string name="app_name">Caro Online</string>
     <string name="quit">Quit</string>
     <string name="single_player">Single player</string>

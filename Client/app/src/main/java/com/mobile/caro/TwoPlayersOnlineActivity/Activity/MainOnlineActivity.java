@@ -110,6 +110,14 @@ public class MainOnlineActivity extends FragmentActivity {
             }
         });
 
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainOnlineActivity.this, ImageSelectorActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.duel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
