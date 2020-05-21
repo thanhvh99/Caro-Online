@@ -69,7 +69,6 @@ public class RegisterDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 sendRegisterRequest();
-                setLoading(true);
             }
         });
 
@@ -115,6 +114,7 @@ public class RegisterDialog extends DialogFragment {
             Toast.makeText(getContext(), R.string.confirm_password_does_not_match, Toast.LENGTH_SHORT).show();
             return;
         }
+        setLoading(true);
         UserAPI.UserDTO userDTO = new UserAPI.UserDTO();
         userDTO.username = username.getText().toString();
         userDTO.password = password.getText().toString();

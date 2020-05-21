@@ -4,12 +4,29 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:gravity="center"
+        android:text="@string/online"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
     <com.mobile.caro.Board.BoardViewer
         android:id="@+id/boardViewer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintTop_toBottomOf="@id/shadow"
         app:layout_constraintBottom_toTopOf="@id/seperateLine2" />
 
     <View
@@ -24,7 +41,8 @@
         android:id="@+id/user1"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="5dp"
         android:background="@drawable/background_player"
         app:layout_constraintBottom_toTopOf="@id/user2">
 
@@ -54,7 +72,7 @@
             android:id="@+id/time1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textColor="@android:color/white"
             android:drawableStart="@drawable/ic_timer"
             android:drawableLeft="@drawable/ic_timer"
@@ -69,7 +87,7 @@
         android:id="@+id/user2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:background="@drawable/background_player"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -99,7 +117,7 @@
             android:id="@+id/time2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textColor="@android:color/white"
             android:drawableStart="@drawable/ic_timer"
             android:drawableLeft="@drawable/ic_timer"

@@ -7,11 +7,10 @@
     </string-array>
 
     <string name="app_name">Caro Online</string>
-    <string name="play">Chơi</string>
-    <string name="quit">Thoát</string>
-    <string name="btn_play_with_computer">Chơi với máy</string>
-    <string name="btn_play_with_human">Hai người chơi</string>
-    <string name="btn_play_online">Chơi online</string>
+    <string name="quit">Quit</string>
+    <string name="single_player">Single player</string>
+    <string name="two_players">Two players</string>
+    <string name="play_online">Play online</string>
     <string name="btn_back">Thoát</string>
     <string name="back">Back</string>
     <string name="elo">Elo</string>
@@ -79,4 +78,5 @@
     <string name="first_player_win">First player win</string>
     <string name="second_player_win">Second player win</string>
     <string name="switch_marker">Switch marker</string>
+    <string name="online">Online</string>
 </resources>
