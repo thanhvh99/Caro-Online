@@ -3,7 +3,6 @@ package com.mobile.caro.TwoPlayersOnlineActivity.Network;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Player;
 
 import org.json.JSONObject;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -22,19 +21,12 @@ public final class SocketHandler {
             IO.Options options = new IO.Options();
             options.reconnection = false;
             socket = IO.socket(Network.SERVER_URL, options);
-            socket.on("authenticated", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    authenticated = true;
-                }
-            });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void connect(final String token) {
-        socket.connect();
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("token", token);
@@ -54,6 +46,13 @@ public final class SocketHandler {
                 socket.emit("authenticate", jsonObject);
             }
         });
+        socket.once("authenticated", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                authenticated = true;
+            }
+        });
+        socket.connect();
     }
 
     public static void emit(String event, Object... object) {

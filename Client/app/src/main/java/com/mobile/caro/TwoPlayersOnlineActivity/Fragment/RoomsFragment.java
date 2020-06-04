@@ -37,7 +37,6 @@ public class RoomsFragment extends Fragment {
     private List<Room> rooms;
 
     private View view;
-    private FloatingActionsMenu floatingActionsMenu;
     private ListView listView;
     private Adapter adapter;
 
@@ -88,7 +87,6 @@ public class RoomsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new CreateDialog().show(getParentFragmentManager(), null);
-                floatingActionsMenu.collapse();
             }
         });
 
@@ -102,7 +100,6 @@ public class RoomsFragment extends Fragment {
     }
 
     private void mapping() {
-        floatingActionsMenu = view.findViewById(R.id.floatingActionsMenu);
         listView = view.findViewById(R.id.listView);
     }
 
