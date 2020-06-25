@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Player;
 import com.mobile.caro.TwoPlayersOnlineActivity.Network.SocketHandler;
@@ -127,7 +128,8 @@ public class LeaderboardFragment extends Fragment {
                 holder = (Holder) view.getTag();
             }
             Player player = players.get(position);
-            holder.userImage.setImageResource(fragment.getResources().getIdentifier(player.getImageUrl(), "drawable", fragment.getActivity().getPackageName()));
+            int id = fragment.getResources().getIdentifier(player.getImageUrl(), "drawable", fragment.getActivity().getPackageName());
+            Glide.with(fragment).load(id).into(holder.userImage);
             holder.username.setText(player.getUsername());
             holder.index.setText(Integer.toString(position + 1));
             holder.elo.setText(player.getElo());
