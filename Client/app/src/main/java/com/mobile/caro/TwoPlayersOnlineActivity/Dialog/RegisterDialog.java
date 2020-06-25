@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Network.Network;
 import com.mobile.caro.TwoPlayersOnlineActivity.Network.SocketHandler;
@@ -111,7 +112,7 @@ public class RegisterDialog extends DialogFragment {
 
     private void sendRegisterRequest() {
         if (!password.getText().toString().equals(confirm.getText().toString())) {
-            Toast.makeText(getContext(), R.string.confirm_password_does_not_match, Toast.LENGTH_SHORT).show();
+            MyToast.show(getContext(), R.string.confirm_password_does_not_match);
             return;
         }
         setLoading(true);
@@ -124,7 +125,7 @@ public class RegisterDialog extends DialogFragment {
             public void onResponse(Call<UserAPI.ResultDTO> call, Response<UserAPI.ResultDTO> response) {
                 setLoading(false);
                 if (response.body() == null) {
-                    Toast.makeText(getActivity(), R.string.error_please_try_again, Toast.LENGTH_SHORT).show();
+                    MyToast.show(getActivity(), R.string.error_please_try_again);
                     return;
                 }
                 if (response.body().success) {
@@ -132,14 +133,14 @@ public class RegisterDialog extends DialogFragment {
                     saveLoginData();
                     dismiss();
                 } else {
-                    Toast.makeText(getActivity(), response.body().message, Toast.LENGTH_LONG).show();
+                    MyToast.show(getActivity(), response.body().message, Toast.LENGTH_LONG);
                 }
             }
 
             @Override
             public void onFailure(Call<UserAPI.ResultDTO> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                MyToast.show(getActivity(), t.getMessage(), Toast.LENGTH_LONG);
             }
         });
     }

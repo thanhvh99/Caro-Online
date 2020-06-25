@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board.Board;
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 
 public class TwoPlayersActivity extends AbstractPlayActivity {
@@ -105,7 +106,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
             @Override
             public void onClick(View v) {
                 mapSize.setText(mapSize.getText().equals("15") ? "19" : "15");
-                Toast.makeText(TwoPlayersActivity.this, R.string.settings_will_be_applied_in_new_game, Toast.LENGTH_SHORT).show();
+                MyToast.show(TwoPlayersActivity.this, R.string.settings_will_be_applied_in_new_game);
             }
         });
 
@@ -190,9 +191,9 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
             boardViewer.draw();
             if (!board.isOngoing()) {
                 switch (board.getStatus()) {
-                    case P1_WIN: Toast.makeText(this, R.string.first_player_win, Toast.LENGTH_SHORT).show(); break;
-                    case P2_WIN: Toast.makeText(this, R.string.second_player_win, Toast.LENGTH_SHORT).show(); break;
-                    case EVEN: Toast.makeText(this, R.string.even, Toast.LENGTH_SHORT).show(); break;
+                    case P1_WIN: MyToast.show(this, R.string.first_player_win); break;
+                    case P2_WIN: MyToast.show(this, R.string.second_player_win); break;
+                    case EVEN: MyToast.show(this, R.string.even); break;
                 }
                 undoImage.setImageResource(R.drawable.ic_restart);
             }

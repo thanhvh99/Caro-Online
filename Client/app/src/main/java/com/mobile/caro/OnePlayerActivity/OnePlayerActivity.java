@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.mobile.caro.AI.Computer;
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board.Board;
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 
 
@@ -90,7 +91,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
             @Override
             public void onClick(View v) {
                 mapSize.setText(mapSize.getText().equals("15") ? "19" : "15");
-                Toast.makeText(OnePlayerActivity.this, R.string.settings_will_be_applied_in_new_game, Toast.LENGTH_SHORT).show();
+                MyToast.show(OnePlayerActivity.this, R.string.settings_will_be_applied_in_new_game);
             }
         });
 
@@ -205,13 +206,13 @@ public class OnePlayerActivity extends AbstractPlayActivity {
             if (!board.isOngoing()) {
                 switch (board.getStatus()) {
                     case P1_WIN:
-                        Toast.makeText(this, R.string.first_player_win, Toast.LENGTH_SHORT).show();
+                        MyToast.show(this, R.string.first_player_win);
                         break;
                     case P2_WIN:
-                        Toast.makeText(this, R.string.second_player_win, Toast.LENGTH_SHORT).show();
+                        MyToast.show(this, R.string.second_player_win);
                         break;
                     case EVEN:
-                        Toast.makeText(this, R.string.even, Toast.LENGTH_SHORT).show();
+                        MyToast.show(this, R.string.even);
                         break;
                 }
                 undoImage.setImageResource(R.drawable.ic_restart);
@@ -237,13 +238,13 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                         if (!board.isOngoing()) {
                             switch (board.getStatus()) {
                                 case P1_WIN:
-                                    Toast.makeText(OnePlayerActivity.this, R.string.first_player_win, Toast.LENGTH_SHORT).show();
+                                    MyToast.show(OnePlayerActivity.this, R.string.first_player_win);
                                     break;
                                 case P2_WIN:
-                                    Toast.makeText(OnePlayerActivity.this, R.string.second_player_win, Toast.LENGTH_SHORT).show();
+                                    MyToast.show(OnePlayerActivity.this, R.string.second_player_win);
                                     break;
                                 case EVEN:
-                                    Toast.makeText(OnePlayerActivity.this, R.string.even, Toast.LENGTH_SHORT).show();
+                                    MyToast.show(OnePlayerActivity.this, R.string.even);
                                     break;
                             }
                             undoImage.setImageResource(R.drawable.ic_restart);

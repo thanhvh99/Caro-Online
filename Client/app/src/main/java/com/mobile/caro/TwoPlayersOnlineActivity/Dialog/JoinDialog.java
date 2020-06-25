@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Activity.HostRoomOnlineActivity;
 import com.mobile.caro.TwoPlayersOnlineActivity.Activity.JoinRoomOnlineActivity;
@@ -118,7 +119,7 @@ public class JoinDialog extends DialogFragment {
                         @Override
                         public void run() {
                             join.setEnabled(true);
-                            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                            MyToast.show(getActivity(), message);
                         }
                     });
                 }

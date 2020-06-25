@@ -21,6 +21,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Player;
@@ -339,7 +340,7 @@ public class HostRoomOnlineActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         try {
-                            Toast.makeText(HostRoomOnlineActivity.this, message, Toast.LENGTH_SHORT).show();
+                            MyToast.show(HostRoomOnlineActivity.this, message);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

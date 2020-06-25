@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.InviteDialog;
@@ -284,7 +285,7 @@ public class MainOnlineActivity extends FragmentActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainOnlineActivity.this, message, Toast.LENGTH_SHORT).show();
+                        MyToast.show(MainOnlineActivity.this, message);
                     }
                 });
             } catch (Exception e) {
