@@ -183,7 +183,7 @@ public class ChallengeFragment extends Fragment {
         public View getView(int position, View view, ViewGroup parent) {
             Holder holder;
             if (view == null) {
-                view = fragment.getLayoutInflater().inflate(R.layout.item_player, null);
+                view = fragment.getLayoutInflater().inflate(R.layout.item_challenge, null);
                 holder = new Holder();
                 holder.userImage = view.findViewById(R.id.userImage);
                 holder.username = view.findViewById(R.id.username);
