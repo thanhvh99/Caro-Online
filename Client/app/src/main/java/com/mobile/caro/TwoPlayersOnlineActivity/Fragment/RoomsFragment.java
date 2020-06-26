@@ -63,6 +63,7 @@ public class RoomsFragment extends Fragment {
         if (SocketHandler.isAuthenticated()) {
             SocketHandler.emit("rooms");
         } else {
+            System.out.println("authenticated");
             SocketHandler.once("authenticated", onAuthenticated);
         }
     }

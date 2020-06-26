@@ -11,7 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mobile.caro.AbstractPlayActivity;
 import com.mobile.caro.Board.Board;
+import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
+import com.mobile.caro.TwoPlayersOnlineActivity.BottomSheet.GoFirstBottomSheet;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ResultDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Entity.Room;
@@ -36,11 +38,23 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_play);
 
+        mapping();
+        initialize();
+
+        resetGame();
+    }
+
+    public void resetGame() {
         board = new Board(19);
         setupBoardViewer();
 
-        mapping();
-        initialize();
+        new GoFirstBottomSheet().show(getSupportFragmentManager(), null);
+
+        user1.setEnabled(false);
+        user2.setEnabled(false);
+
+        time1.setVisibility(View.GONE);
+        time2.setVisibility(View.GONE);
     }
 
     private void mapping() {
@@ -71,6 +85,8 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         SocketHandler.on("put", onPut);
         SocketHandler.on("win", onWin);
         SocketHandler.on("even", onEven);
+        SocketHandler.on("rematch", onRematch);
+        SocketHandler.on("first", onFirst);
     }
 
     @Override
@@ -81,6 +97,8 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         SocketHandler.off("put", onPut);
         SocketHandler.off("win", onWin);
         SocketHandler.off("even", onEven);
+        SocketHandler.off("rematch", onRematch);
+        SocketHandler.off("first", onFirst);
     }
 
     @Override
@@ -163,11 +181,11 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
             try {
                 JSONObject object = (JSONObject) args[0];
                 boolean win = object.getString("username").equals(SocketHandler.getPlayer().getUsername());
-                String message = getString(win ? R.string.congratulation_you_are_the_winner : R.string.try_harder_next_time);
+                String message = getString(win ? R.string.congratulation : R.string.try_harder_next_time);
                 if (object.has("message")) {
                     message = object.getString("message");
                 }
-                new ResultDialog(getString(win ? R.string.win : R.string.lose), message).show(getSupportFragmentManager(), null);
+                new ResultDialog(getString(R.string.the_winner_is) + " " + object.getString("username"), message, !object.has("message")).show(getSupportFragmentManager(), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -177,7 +195,37 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
     private Emitter.Listener onEven = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            new ResultDialog(getString(R.string.even), "").show(getSupportFragmentManager(), null);
+            new ResultDialog(getString(R.string.even), "", true).show(getSupportFragmentManager(), null);
+        }
+    };
+
+    private Emitter.Listener onRematch = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    resetGame();
+                }
+            });
+            SocketHandler.emit("start");
+        }
+    };
+
+    private Emitter.Listener onFirst = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        JSONObject object = (JSONObject) args[0];
+                        MyToast.show(PlayOnlineActivity.this, object.getString("username") + " " + getString(R.string.will_go_first));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     };
 }
