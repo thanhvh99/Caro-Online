@@ -25,16 +25,6 @@
         <item>user15</item>
         <item>user16</item>
         <item>user17</item>
-        <item>user18</item>
-        <item>user19</item>
-        <item>user20</item>
-        <item>user21</item>
-        <item>user22</item>
-        <item>user23</item>
-        <item>user24</item>
-        <item>user25</item>
-        <item>user26</item>
-        <item>user27</item>
     </string-array>
 
     <string name="app_name">Caro Online</string>
@@ -56,7 +46,6 @@
     <string name="disconnect">Disconnect</string>
     <string name="duel">Duel</string>
     <string name="statistic">Statistic</string>
-    <string name="number">Number</string>
     <string name="challenge">Challenge</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="logout">Logout</string>
@@ -66,23 +55,18 @@
     <string name="confirm_password_does_not_match">Confirm password does not match</string>
     <string name="error">Error</string>
     <string name="lost_connection_to_server">Lost connection to server</string>
-    <string name="random_match">Random match</string>
-    <string name="create_room">Create room</string>
     <string name="timelapse">Timelapse</string>
     <string name="create">Create</string>
-    <string name="rooms">Rooms</string>
     <string name="waiting_for_second_user">Waiting for second user</string>
     <string name="save">Save</string>
     <string name="join">Join</string>
     <string name="room">Room</string>
     <string name="warning">Warning</string>
     <string name="host_has_left_the_room">Host has left the room</string>
-    <string name="you_have_been_kicked_by_the_host">You have been kicked by the host</string>
+    <string name="you_have_been_kicked">You have been kicked</string>
     <string name="kick">Kick</string>
     <string name="ready">Ready</string>
     <string name="start">Start</string>
-    <string name="win">Win</string>
-    <string name="lose">Lose</string>
     <string name="rematch">Rematch</string>
     <string name="leave">Leave</string>
     <string name="congratulation">Congratulation!!</string>
@@ -109,7 +93,6 @@
     <string name="second_player_win">Second player win</string>
     <string name="switch_marker">Switch marker</string>
     <string name="online">Online</string>
-    <string name="match_ended">Match ended</string>
     <string name="the_winner_is">The winner is</string>
     <string name="your_opponent_has_left">Your opponent has left</string>
     <string name="waiting">Waiting</string>

@@ -6,20 +6,20 @@
             <item>
                 <shape android:shape="rectangle">
                     <corners android:radius="@dimen/button_radius"/>
-                    <solid android:color="@color/color_pomegranate"/>
+                    <solid android:color="@color/color_orange"/>
                 </shape>
             </item>
 
             <item android:bottom="@dimen/button_shadow">
                 <shape android:shape="rectangle">
                     <corners android:radius="@dimen/button_radius"/>
-                    <solid android:color="@color/color_alizarin"/>
+                    <solid android:color="@color/color_sun_flower"/>
                 </shape>
             </item>
         </layer-list>
     </item>
 
-    <item android:state_checked="false" android:state_pressed="false">
+    <item android:state_enabled="true" android:state_pressed="false">
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
@@ -37,43 +37,13 @@
         </layer-list>
     </item>
 
-    <item android:state_checked="false" android:state_pressed="true">
+    <item android:state_enabled="true" android:state_pressed="true">
         <layer-list>
             <item android:top="@dimen/button_shadow">
                 <shape android:shape="rectangle">
                     <padding android:top="@dimen/button_shadow" />
                     <corners android:radius="@dimen/button_radius"/>
                     <solid android:color="@color/color_emerald"/>
-                </shape>
-            </item>
-        </layer-list>
-    </item>
-
-    <item android:state_checked="true" android:state_pressed="false">
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <corners android:radius="@dimen/button_radius"/>
-                    <solid android:color="@color/color_carrot"/>
-                </shape>
-            </item>
-
-            <item android:bottom="@dimen/button_shadow">
-                <shape android:shape="rectangle">
-                    <corners android:radius="@dimen/button_radius"/>
-                    <solid android:color="@color/color_orange"/>
-                </shape>
-            </item>
-        </layer-list>
-    </item>
-
-    <item android:state_checked="true" android:state_pressed="true">
-        <layer-list>
-            <item android:top="@dimen/button_shadow">
-                <shape android:shape="rectangle">
-                    <padding android:top="@dimen/button_shadow" />
-                    <corners android:radius="@dimen/button_radius"/>
-                    <solid android:color="@color/color_orange"/>
                 </shape>
             </item>
         </layer-list>

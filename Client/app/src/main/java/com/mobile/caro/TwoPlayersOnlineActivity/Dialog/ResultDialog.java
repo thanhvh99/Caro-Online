@@ -2,10 +2,8 @@ package com.mobile.caro.TwoPlayersOnlineActivity.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -16,7 +14,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
-import com.mobile.caro.TwoPlayersOnlineActivity.Activity.PlayOnlineActivity;
 import com.mobile.caro.TwoPlayersOnlineActivity.Network.SocketHandler;
 
 import io.socket.emitter.Emitter;
@@ -74,19 +71,17 @@ public class ResultDialog extends DialogFragment {
         ((TextView) view.findViewById(R.id.winner)).setText(title);
         ((TextView) view.findViewById(R.id.message)).setText(message);
         if (!rematchable) {
-            rematch.setEnabled(false);
+            rematch.setVisibility(View.GONE);
         }
     }
 
 
     private void setupListener() {
-        rematch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        rematch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (rematch.isChecked()) {
-                    SocketHandler.emit("rematch");
-                }
-                rematch.setChecked(true);
+            public void onClick(View v) {
+                SocketHandler.emit("rematch");
+                rematch.setEnabled(false);
             }
         });
 
@@ -105,8 +100,7 @@ public class ResultDialog extends DialogFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    rematch.setChecked(false);
-                    rematch.setEnabled(false);
+                    rematch.setVisibility(View.GONE);
                     MyToast.show(getContext(), R.string.your_opponent_has_left);
                 }
             });

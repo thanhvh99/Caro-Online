@@ -96,7 +96,6 @@ public class MainOnlineActivity extends FragmentActivity {
         challengeFragment = new ChallengeFragment();
         statisticFragment = new StatisticFragment();
         leaderboardFragment = new LeaderboardFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, roomsFragment).commit();
     }
 
     private void setupListener() {
@@ -204,6 +203,7 @@ public class MainOnlineActivity extends FragmentActivity {
         @Override
         public void call(Object... args) {
             SocketHandler.emit("information");
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, roomsFragment).commit();
         }
     };
 

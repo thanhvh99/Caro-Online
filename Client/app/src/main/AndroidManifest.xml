@@ -33,7 +33,10 @@
         <activity android:name=".TwoPlayersOnlineActivity.Activity.PlayOnlineActivity"
             android:launchMode="singleTop"/>
         <activity android:name=".TwoPlayersOnlineActivity.Activity.ImageSelectorActivity"
-            android:theme="@android:style/Theme.Holo.Dialog"/>
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.SettingsActivity"
+            android:launchMode="singleTop"/>
 
     </application>
 

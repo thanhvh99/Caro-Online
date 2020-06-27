@@ -46,11 +46,7 @@ public class ChallengeFragment extends Fragment {
         super.onStart();
         SocketHandler.on("player", onPlayer);
         SocketHandler.on("players", onPlayers);
-        if (SocketHandler.isAuthenticated()) {
-            SocketHandler.emit("players");
-        } else {
-            SocketHandler.once("authenticated", onAuthenticated);
-        }
+        SocketHandler.emit("players");
     }
 
     @Override

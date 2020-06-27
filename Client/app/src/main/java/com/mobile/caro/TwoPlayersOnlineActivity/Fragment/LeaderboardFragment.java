@@ -45,12 +45,7 @@ public class LeaderboardFragment extends Fragment {
     public void onStart() {
         super.onStart();
         SocketHandler.on("leaderboard", onLeaderboard);
-
-        if (SocketHandler.isAuthenticated()) {
-            SocketHandler.emit("leaderboard");
-        } else {
-            SocketHandler.once("authenticated", onAuthenticated);
-        }
+        SocketHandler.emit("leaderboard");
     }
 
     @Override
@@ -73,6 +68,7 @@ public class LeaderboardFragment extends Fragment {
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
+                        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
                     }
                 });
             } catch (Exception e) {

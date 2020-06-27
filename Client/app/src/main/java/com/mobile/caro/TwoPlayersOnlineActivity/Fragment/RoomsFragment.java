@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.JoinDialog;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.CreateDialog;
@@ -59,13 +58,7 @@ public class RoomsFragment extends Fragment {
         SocketHandler.on("rooms", onRooms);
         SocketHandler.on("room", onRoom);
         SocketHandler.on("delete", onDelete);
-
-        if (SocketHandler.isAuthenticated()) {
-            SocketHandler.emit("rooms");
-        } else {
-            System.out.println("authenticated");
-            SocketHandler.once("authenticated", onAuthenticated);
-        }
+        SocketHandler.emit("rooms");
     }
 
     @Override

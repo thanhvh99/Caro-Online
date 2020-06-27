@@ -145,7 +145,7 @@ public class JoinRoomOnlineActivity extends FragmentActivity {
     private Emitter.Listener onKick = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            new WarningDialog(getString(R.string.you_have_been_kicked_by_the_host), new DialogInterface.OnDismissListener() {
+            new WarningDialog(getString(R.string.you_have_been_kicked), new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     finish();
