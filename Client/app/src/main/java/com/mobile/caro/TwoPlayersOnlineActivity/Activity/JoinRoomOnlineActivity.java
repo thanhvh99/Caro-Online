@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobile.caro.R;
 import com.mobile.caro.TwoPlayersOnlineActivity.Dialog.ErrorDialog;
@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 import io.socket.emitter.Emitter;
 
-public class JoinRoomOnlineActivity extends FragmentActivity {
+public class JoinRoomOnlineActivity extends AppCompatActivity {
 
     private Room room;
 
@@ -36,6 +36,10 @@ public class JoinRoomOnlineActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_room_join);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mapping();
         initialize();

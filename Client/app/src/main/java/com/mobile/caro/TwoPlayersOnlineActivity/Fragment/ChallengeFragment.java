@@ -31,13 +31,16 @@ public class ChallengeFragment extends Fragment {
     private List<Player> players = new ArrayList<>();
 
     private Adapter adapter;
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_challenge, null);
-        adapter = new Adapter(this, players);
-        ((ListView) view.findViewById(R.id.listView)).setAdapter(adapter);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_challenge, null);
+            adapter = new Adapter(this, players);
+            ((ListView) view.findViewById(R.id.listView)).setAdapter(adapter);
+        }
         return view;
     }
 

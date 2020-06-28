@@ -42,12 +42,13 @@ public class RoomsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_rooms, null);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_rooms, null);
 
-        mapping();
-        initialize();
-        setupListener();
-
+            mapping();
+            initialize();
+            setupListener();
+        }
         return view;
     }
 

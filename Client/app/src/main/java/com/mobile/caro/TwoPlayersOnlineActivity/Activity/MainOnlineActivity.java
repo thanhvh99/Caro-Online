@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -29,9 +32,11 @@ import com.mobile.caro.TwoPlayersOnlineActivity.Network.SocketHandler;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import io.socket.emitter.Emitter;
 
-public class MainOnlineActivity extends FragmentActivity {
+public class MainOnlineActivity extends AppCompatActivity {
 
     private boolean active;
 
@@ -50,6 +55,10 @@ public class MainOnlineActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_main);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mapping();
         initialize();

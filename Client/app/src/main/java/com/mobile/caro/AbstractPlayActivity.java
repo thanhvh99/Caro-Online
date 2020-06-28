@@ -4,12 +4,12 @@ package com.mobile.caro;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobile.caro.Board.Board;
 import com.mobile.caro.Board.BoardViewer;
 
-public abstract class AbstractPlayActivity extends FragmentActivity {
+public abstract class AbstractPlayActivity extends AppCompatActivity {
 
     protected BoardViewer boardViewer;
     protected Board board;
@@ -17,6 +17,11 @@ public abstract class AbstractPlayActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         BitmapManager.initialize(this);
     }
 

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.mobile.caro.MyToast;
@@ -32,7 +33,7 @@ import org.json.JSONObject;
 
 import io.socket.emitter.Emitter;
 
-public class HostRoomOnlineActivity extends FragmentActivity {
+public class HostRoomOnlineActivity extends AppCompatActivity {
 
     private Room room;
 
@@ -52,6 +53,10 @@ public class HostRoomOnlineActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_room_host);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         mapping();
         initialize();

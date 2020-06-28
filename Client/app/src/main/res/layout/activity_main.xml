@@ -39,13 +39,13 @@
             android:id="@+id/computer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/single_player"
             android:layout_margin="10dp"
+            android:text="@string/single_player"
             style="@style/MenuButton"
-            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintBottom_toTopOf="@id/multiplayer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/multiplayer" />
+            app:layout_constraintWidth_percent="0.6" />
 
         <Button
             android:id="@+id/multiplayer"
