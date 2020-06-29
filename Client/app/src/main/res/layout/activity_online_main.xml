@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/menu"
                 android:src="@drawable/ic_menu"
-                style="@style/IconActionBar"
+                style="@style/ActionBarImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -28,7 +28,7 @@
             <TextView
                 android:id="@+id/title"
                 android:text="@string/duel"
-                style="@style/TextActionBar"
+                style="@style/ActionBarText"
                 app:layout_constraintStart_toEndOf="@id/menu"
                 app:layout_constraintTop_toTopOf="@id/menu"
                 app:layout_constraintBottom_toBottomOf="@id/menu" />
@@ -146,62 +146,40 @@
                         android:id="@+id/duel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
+                        style="@style/OnlineNavigationTextWithImage"
                         android:drawableStart="@drawable/ic_board"
                         android:drawableLeft="@drawable/ic_board"
-                        android:drawablePadding="24dp"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="16dp"
                         android:text="@string/duel"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/challenge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="24dp"
-                        android:drawablePadding="24dp"
+                        style="@style/OnlineNavigationTextWithImage"
                         android:drawableStart="@drawable/ic_group"
                         android:drawableLeft="@drawable/ic_group"
                         android:text="@string/challenge"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
                         app:layout_constraintTop_toBottomOf="@id/duel" />
 
                     <TextView
                         android:id="@+id/leaderboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:drawablePadding="24dp"
+                        style="@style/OnlineNavigationTextWithImage"
                         android:drawableStart="@drawable/ic_podium"
                         android:drawableLeft="@drawable/ic_podium"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="16dp"
                         android:text="@string/leaderboard"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/challenge" />
 
                     <TextView
                         android:id="@+id/statistic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="24dp"
-                        android:drawablePadding="24dp"
+                        style="@style/OnlineNavigationTextWithImage"
                         android:drawableStart="@drawable/ic_statistic"
                         android:drawableLeft="@drawable/ic_statistic"
-                        android:textSize="20sp"
                         android:text="@string/statistic"
-                        android:textColor="@android:color/black"
                         app:layout_constraintTop_toBottomOf="@id/leaderboard" />
 
                     <View
@@ -213,39 +191,19 @@
                         app:layout_constraintTop_toBottomOf="@id/statistic" />
 
                     <TextView
-                        android:id="@+id/feedback"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="24dp"
-                        android:textSize="20sp"
-                        android:text="@string/feedback"
-                        android:textColor="@android:color/black"
-                        app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
-
-                    <TextView
                         android:id="@+id/settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="24dp"
-                        android:textSize="20sp"
+                        style="@style/OnlineNavigationText"
                         android:text="@string/settings"
-                        android:textColor="@android:color/black"
-                        app:layout_constraintTop_toBottomOf="@id/feedback" />
+                        app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
 
                     <TextView
                         android:id="@+id/logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="24dp"
-                        android:textSize="20sp"
+                        style="@style/OnlineNavigationText"
                         android:text="@string/logout"
-                        android:textColor="@android:color/black"
                         app:layout_constraintTop_toBottomOf="@id/settings" />
 
                     <View
@@ -260,12 +218,8 @@
                         android:id="@+id/back"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:paddingVertical="12dp"
-                        android:paddingHorizontal="24dp"
-                        android:textSize="20sp"
+                        style="@style/OnlineNavigationText"
                         android:text="@string/back"
-                        android:textColor="@android:color/black"
                         app:layout_constraintTop_toBottomOf="@id/seperateLine2" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

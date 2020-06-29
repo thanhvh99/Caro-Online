@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_margin="0dp"
         android:text="@string/online"
-        style="@style/TextActionBar"
+        style="@style/ActionBarText"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 

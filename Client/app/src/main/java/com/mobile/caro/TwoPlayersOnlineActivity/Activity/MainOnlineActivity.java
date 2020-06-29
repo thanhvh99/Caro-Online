@@ -105,6 +105,7 @@ public class MainOnlineActivity extends AppCompatActivity {
         challengeFragment = new ChallengeFragment();
         statisticFragment = new StatisticFragment();
         leaderboardFragment = new LeaderboardFragment();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     private void setupListener() {
@@ -163,6 +164,14 @@ public class MainOnlineActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainOnlineActivity.this, SettingsActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,10 +205,14 @@ public class MainOnlineActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        MainOnlineActivity.this.username.setText(SocketHandler.getPlayer().getUsername());
-                        MainOnlineActivity.this.elo.setText(SocketHandler.getPlayer().getElo());
+                        username.setText(SocketHandler.getPlayer().getUsername());
+                        elo.setText(SocketHandler.getPlayer().getElo());
                         userImage.setImageResource(getResources().getIdentifier(SocketHandler.getPlayer().getImageUrl(), "drawable", getPackageName()));
-                        findViewById(R.id.loadingLayout).setVisibility(View.GONE);
+                        View view = findViewById(R.id.loadingLayout);
+                        if (view.getVisibility() == View.VISIBLE) {
+                            view.setVisibility(View.GONE);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, roomsFragment).commit();
+                        }
                     }
                 });
             } catch (Exception e) {
@@ -212,7 +225,7 @@ public class MainOnlineActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             SocketHandler.emit("information");
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, roomsFragment).commit();
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     };
 

@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/menu"
                 android:src="@drawable/ic_menu"
-                style="@style/IconActionBar"
+                style="@style/ActionBarImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -28,7 +28,7 @@
             <TextView
                 android:id="@+id/difficulty"
                 android:text="@string/easy"
-                style="@style/TextActionBar"
+                style="@style/ActionBarText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -36,7 +36,7 @@
             <ImageView
                 android:id="@+id/undo"
                 android:src="@drawable/ic_undo"
-                style="@style/IconActionBar"
+                style="@style/ActionBarImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -207,7 +207,7 @@
                         android:id="@+id/newGame"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationTitle"
+                        style="@style/OfflineNavigationTitle"
                         android:text="@string/new_game"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -215,7 +215,7 @@
                         android:id="@+id/easy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         android:text="@string/easy"
                         app:layout_constraintTop_toBottomOf="@id/newGame" />
 
@@ -223,7 +223,7 @@
                         android:id="@+id/normal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         android:text="@string/normal"
                         app:layout_constraintTop_toBottomOf="@id/easy" />
 
@@ -231,7 +231,7 @@
                         android:id="@+id/hard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         android:text="@string/hard"
                         app:layout_constraintTop_toBottomOf="@id/normal" />
 
@@ -247,7 +247,7 @@
                         android:id="@+id/settings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationTitle"
+                        style="@style/OfflineNavigationTitle"
                         android:text="@string/settings"
                         app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
 
@@ -256,7 +256,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/map_size"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/settings" />
 
                     <TextView
@@ -277,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/player_mark"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/mapSize" />
 
                     <ImageView
@@ -296,7 +296,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/confirm_move"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/playerMarker" />
 
                     <CheckBox

@@ -214,13 +214,6 @@ public class RoomsFragment extends Fragment {
         }
     };
 
-    private Emitter.Listener onAuthenticated = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            SocketHandler.emit("rooms");
-        }
-    };
-
     private static class Adapter extends BaseAdapter {
 
         private List<Room> rooms;

@@ -63,13 +63,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/win"
-                    style="@style/TextStatistic" />
+                    style="@style/StatisticText" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lose"
-                    style="@style/TextStatistic"/>
+                    style="@style/StatisticText"/>
 
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@color/color_emerald"
-                    style="@style/TextStatistic" />
+                    style="@style/StatisticText" />
 
                 <TextView
                     android:id="@+id/lose"
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@color/color_alizarin"
-                    style="@style/TextStatistic"/>
+                    style="@style/StatisticText"/>
 
             </LinearLayout>
 
@@ -111,14 +111,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextStatistic"
+                    style="@style/StatisticText"
                     android:text="@string/rank" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/win_rate"
-                    style="@style/TextStatistic"/>
+                    style="@style/StatisticText"/>
 
             </LinearLayout>
 
@@ -136,14 +136,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    style="@style/TextStatistic" />
+                    style="@style/StatisticText" />
 
                 <TextView
                     android:id="@+id/rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    style="@style/TextStatistic"/>
+                    style="@style/StatisticText"/>
 
             </LinearLayout>
 

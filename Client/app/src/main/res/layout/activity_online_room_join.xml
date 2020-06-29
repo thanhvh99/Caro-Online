@@ -14,14 +14,14 @@
         <ImageView
             android:id="@+id/back"
             android:src="@drawable/ic_back"
-            style="@style/IconActionBar"
+            style="@style/ActionBarImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:text="@string/room"
-            style="@style/TextActionBar"
+            style="@style/ActionBarText"
             app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,6 +1,8 @@
 package com.mobile.caro.TwoPlayersOnlineActivity.Activity;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +35,10 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
     private TextView time1;
     private TextView time2;
 
+    private boolean confirm;
+    private int goFirstOption;
+    private boolean switchMark;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +54,17 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
         board = new Board(19);
         setupBoardViewer();
 
-        new GoFirstBottomSheet().show(getSupportFragmentManager(), null);
+        if (goFirstOption == 0) {
+            new GoFirstBottomSheet().show(getSupportFragmentManager(), null);
+        } else {
+            try {
+                JSONObject object = new JSONObject();
+                object.put("first", goFirstOption == 1);
+                SocketHandler.emit("first", object);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         user1.setEnabled(false);
         user2.setEnabled(false);
@@ -69,6 +85,11 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
 
         user1.setEnabled(false);
         user2.setEnabled(false);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("OnlineSettings", MODE_PRIVATE);
+        confirm = sharedPreferences.getInt("confirm", 1) == 0;
+        goFirstOption = sharedPreferences.getInt("first", 0);
+        switchMark = sharedPreferences.getInt("mark", 0) == 1;
 
         ((TextView) findViewById(R.id.username1)).setText(SocketHandler.getPlayer().getUsername());
         ((ImageView) findViewById(R.id.userImage1)).setImageResource(getResources().getIdentifier(SocketHandler.getPlayer().getImageUrl(), "drawable", getPackageName()));
@@ -109,15 +130,29 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
 
     @Override
     public void onTileSelected(int x, int y) {
-        if (isPlayerTurn) {
-            try {
-                JSONObject object = new JSONObject();
-                object.put("x", x);
-                object.put("y", y);
-                SocketHandler.emit("put", object);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (!isPlayerTurn) {
+            return;
+        }
+        if (!board.isEmptyAt(x, y)) {
+            boardViewer.removeConfirmMove();
+            boardViewer.draw();
+            return;
+        }
+        if (confirm) {
+            Point currentConfirmMove = boardViewer.getConfirmMove();
+            if (!currentConfirmMove.equals(x, y)) {
+                boardViewer.setConfirmMove(x, y);
+                boardViewer.draw();
+                return;
             }
+        }
+        try {
+            JSONObject object = new JSONObject();
+            object.put("x", x);
+            object.put("y", y);
+            SocketHandler.emit("put", object);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -155,6 +190,7 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
                 int x = object.getInt("x");
                 int y = object.getInt("y");
                 board.select(x, y);
+                boardViewer.removeConfirmMove();
                 boardViewer.setLastMove(x, y);
                 boardViewer.draw();
             } catch (Exception e) {
@@ -220,7 +256,9 @@ public class PlayOnlineActivity extends AbstractPlayActivity {
                 public void run() {
                     try {
                         JSONObject object = (JSONObject) args[0];
-                        MyToast.show(PlayOnlineActivity.this, object.getString("username") + " " + getString(R.string.will_go_first));
+                        String username = object.getString("username");
+                        boardViewer.setSwitchMarker(!username.equals(SocketHandler.getPlayer().getUsername()) ^ switchMark);
+                        MyToast.show(PlayOnlineActivity.this, username + " " + getString(R.string.will_go_first));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

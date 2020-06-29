@@ -157,7 +157,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     }
 
     private void initialize() {
-        SharedPreferences sharedPreferences = getSharedPreferences("singleplayer", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("SingleplayerSettings", MODE_PRIVATE);
         int width = sharedPreferences.getInt("width", 15);
         mapSize.setText(width + "");
         board = new Board(width);
@@ -170,7 +170,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences sharedPreferences = getSharedPreferences("singleplayer", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("SingleplayerSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("width", Integer.parseInt(mapSize.getText().toString()));
         editor.putBoolean("confirm", confirmMove.isChecked());

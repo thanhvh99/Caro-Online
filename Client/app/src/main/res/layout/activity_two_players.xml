@@ -20,14 +20,14 @@
             <ImageView
                 android:id="@+id/menu"
                 android:src="@drawable/ic_menu"
-                style="@style/IconActionBar"
+                style="@style/ActionBarImage"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:text="@string/multiplayer"
-                style="@style/TextActionBar"
+                style="@style/ActionBarText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -35,7 +35,7 @@
             <ImageView
                 android:id="@+id/undo"
                 android:src="@drawable/ic_undo"
-                style="@style/IconActionBar"
+                style="@style/ActionBarImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -206,7 +206,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/new_game"
-                        style="@style/NavigationStandAlone"
+                        style="@style/OfflineNavigationStandAlone"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
@@ -222,7 +222,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings"
-                        style="@style/NavigationTitle"
+                        style="@style/OfflineNavigationTitle"
                         app:layout_constraintTop_toBottomOf="@id/seperateLine1" />
 
                     <TextView
@@ -230,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/map_size"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/settings" />
 
                     <TextView
@@ -251,7 +251,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/switch_mark"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/mapSize" />
 
                     <CheckBox
@@ -271,7 +271,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/confirm_move"
-                        style="@style/NavigationContent"
+                        style="@style/OfflineNavigationContent"
                         app:layout_constraintTop_toBottomOf="@id/switchMarker" />
 
                     <CheckBox
@@ -295,7 +295,7 @@
                         android:id="@+id/back"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/NavigationStandAlone"
+                        style="@style/OfflineNavigationStandAlone"
                         android:text="@string/back"
                         app:layout_constraintTop_toBottomOf="@id/seperateLine2" />
 

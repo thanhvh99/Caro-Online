@@ -44,7 +44,7 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences sharedPreferences = getSharedPreferences("multiplayer", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("MultiplayerSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("width", Integer.parseInt(mapSize.getText().toString()));
         editor.putBoolean("confirm", confirmMove.isChecked());

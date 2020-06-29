@@ -107,4 +107,13 @@
     <string name="history">History</string>
     <string name="replay">Replay</string>
     <string name="error_loading_match">Error loading match</string>
+    <string name="go_first_option">Go first option</string>
+    <string name="ask_everytime">Ask everytime</string>
+    <string name="first">First</string>
+    <string name="second">Second</string>
+    <string name="your_mark">Your mark</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="x">X</string>
+    <string name="o">O</string>
 </resources>
