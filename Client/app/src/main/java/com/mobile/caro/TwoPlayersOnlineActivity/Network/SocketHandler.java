@@ -14,8 +14,6 @@ public final class SocketHandler {
 
     private static Player player;
 
-    private static boolean authenticated = false;
-
     static {
         try {
             IO.Options options = new IO.Options();
@@ -46,12 +44,7 @@ public final class SocketHandler {
                 socket.emit("authenticate", jsonObject);
             }
         });
-        socket.once("authenticated", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                authenticated = true;
-            }
-        });
+
         socket.connect();
     }
 
@@ -72,13 +65,8 @@ public final class SocketHandler {
     }
 
     public static void close() {
-        authenticated = false;
         socket.off();
         socket.close();
-    }
-
-    public static boolean isAuthenticated() {
-        return authenticated;
     }
 
     public static void setPlayer(Player player) {

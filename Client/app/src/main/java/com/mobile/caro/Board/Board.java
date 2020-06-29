@@ -1,7 +1,5 @@
 package com.mobile.caro.Board;
 
-import android.graphics.Point;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +20,19 @@ public class Board {
         availableMove = size * size;
     }
 
-    public Point getLastMove() {
-        int value = history.get(history.size() - 1);
-        return new Point(value % matrix.length, value / matrix.length);
-    }
-
     public Board(Board board) {
         int[][] matrixToCopy = board.getMatrix();
         matrix = new int[matrixToCopy.length][matrixToCopy.length];
         for (int i = 0; i < matrixToCopy.length; i++) {
             System.arraycopy(matrixToCopy[i], 0, matrix[i], 0, matrixToCopy.length);
+        }
+    }
+
+    public int getLastMove() {
+        if (history.isEmpty()) {
+            return -1;
+        } else {
+            return history.get(history.size() - 1);
         }
     }
 
@@ -66,31 +67,28 @@ public class Board {
     }
 
     public boolean select(int x, int y) {
-        if (!isOngoing()) {
-            return false;
-        }
-
         if (!isInRange(x, y) || !isEmptyAt(x, y)) {
             return false;
         }
         matrix[y][x] = firstPlayerTurn ? VALUE_X : VALUE_O;
         availableMove--;
         history.add(y * getSize() + x);
+        firstPlayerTurn = !firstPlayerTurn;
         if (checkBoard(x, y)) {
-            status = firstPlayerTurn ? Status.P1_WIN : Status.P2_WIN;
+            status = firstPlayerTurn ? Status.P2_WIN : Status.P1_WIN;
             return true;
         }
         if (availableMove == 0) {
             status = Status.EVEN;
         }
-        firstPlayerTurn = !firstPlayerTurn;
         return true;
     }
 
+    public int getTotalMoves() {
+        return history.size();
+    }
+
     public void undo() {
-        if (!isOngoing()) {
-            return;
-        }
         if (history.isEmpty()) {
             return;
         }

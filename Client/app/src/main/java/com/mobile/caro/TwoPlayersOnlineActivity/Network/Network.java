@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class Network {
 
-    public static final String SERVER_URL = "https://caro-online-server.herokuapp.com/";
+    public static final String SERVER_URL = /*"https://caro-online-server.herokuapp.com/"*/ "http://192.168.100.15:2345/";
 
     private static Retrofit retrofit;
 

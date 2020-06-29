@@ -101,4 +101,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="will_go_first">will go first</string>
+    <string name="win">Win</string>
+    <string name="lose">Lose</string>
+    <string name="win_rate">Win rate</string>
+    <string name="history">History</string>
+    <string name="replay">Replay</string>
+    <string name="error_loading_match">Error loading match</string>
 </resources>

@@ -47,13 +47,11 @@
 
         <ImageView
             android:id="@+id/userImage1"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="8dp"
             android:src="@drawable/user0"
-            app:layout_constraintDimensionRatio="1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -92,13 +90,11 @@
 
         <ImageView
             android:id="@+id/userImage2"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="8dp"
             android:src="@drawable/user0"
-            app:layout_constraintDimensionRatio="1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView

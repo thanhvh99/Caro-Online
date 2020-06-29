@@ -18,32 +18,141 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="win"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="@string/username"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
+                android:id="@+id/elo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lose"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_marginHorizontal="10dp"
+                android:textSize="18sp"
+                android:drawablePadding="4dp"
+                android:textColor="@android:color/black"
+                android:drawableRight="@drawable/ic_trophy_black"
+                android:drawableEnd="@drawable/ic_trophy_black"
+                app:layout_constraintTop_toTopOf="@id/username"
+                app:layout_constraintBottom_toBottomOf="@id/username"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="total"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <View
+                android:id="@+id/seperateLine1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@id/username" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="win rate"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:orientation="vertical"
+                android:paddingVertical="4dp"
+                app:layout_constraintTop_toBottomOf="@id/seperateLine1"
+                app:layout_constraintStart_toStartOf="parent" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/win"
+                    style="@style/TextStatistic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lose"
+                    style="@style/TextStatistic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="4dp"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/seperateLine1"
+                app:layout_constraintEnd_toStartOf="@id/guideline" >
+
+                <TextView
+                    android:id="@+id/win"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_emerald"
+                    style="@style/TextStatistic" />
+
+                <TextView
+                    android:id="@+id/lose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_alizarin"
+                    style="@style/TextStatistic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/seperateLine1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextStatistic"
+                    android:text="@string/rank" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/win_rate"
+                    style="@style/TextStatistic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="4dp"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/seperateLine1"
+                app:layout_constraintEnd_toEndOf="parent" >
+
+                <TextView
+                    android:id="@+id/rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    style="@style/TextStatistic" />
+
+                <TextView
+                    android:id="@+id/rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    style="@style/TextStatistic"/>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintGuide_percent="0.5"
+                android:orientation="vertical" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,22 +162,30 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="8dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="8dp"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="history"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/history"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <View
-                android:id="@+id/seperateLine"
+                android:id="@+id/seperateLine2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@android:color/darker_gray"
@@ -78,7 +195,7 @@
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/seperateLine"
+                app:layout_constraintTop_toBottomOf="@id/seperateLine2"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

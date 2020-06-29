@@ -37,6 +37,8 @@
             android:launchMode="singleTop"/>
         <activity android:name=".TwoPlayersOnlineActivity.Activity.SettingsActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".TwoPlayersOnlineActivity.Activity.ReplayActivity"
+            android:launchMode="singleTop"/>
 
     </application>
 
