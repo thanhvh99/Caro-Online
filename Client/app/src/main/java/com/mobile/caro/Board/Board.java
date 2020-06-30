@@ -21,10 +21,10 @@ public class Board {
     }
 
     public Board(Board board) {
-        int[][] matrixToCopy = board.getMatrix();
-        matrix = new int[matrixToCopy.length][matrixToCopy.length];
-        for (int i = 0; i < matrixToCopy.length; i++) {
-            System.arraycopy(matrixToCopy[i], 0, matrix[i], 0, matrixToCopy.length);
+        int[][] source = board.getMatrix();
+        matrix = new int[source.length][source.length];
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(source[i], 0, matrix[i], 0, matrix.length);
         }
     }
 
@@ -33,12 +33,6 @@ public class Board {
             return -1;
         } else {
             return history.get(history.size() - 1);
-        }
-    }
-
-    public void setValueAt(int x, int y, int value) {
-        if (isInRange(x, y)) {
-            matrix[y][x] = value;
         }
     }
 
@@ -52,10 +46,6 @@ public class Board {
 
     public boolean isEmptyAt(int x, int y) {
         return isInRange(x, y) && matrix[y][x] == VALUE_BLANK;
-    }
-
-    public int getValueAt(int x, int y) {
-        return matrix[y][x];
     }
 
     public boolean isOngoing() {
@@ -102,88 +92,35 @@ public class Board {
     }
 
     public boolean checkBoard(int x, int y) {
-        int count;
-
-        // kiểm tra hàng ngang
-        count = 1;
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x + i, y) && matrix[y][x + i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = 0; j <= 1; j++) {
+                if ((i == 0 && j == 0)) {
+                    continue;
+                }
+                int count = 1;
+                for (int a = 1; a < 5; a++) {
+                    int tempX = x + a * i;
+                    int tempY = y + a * j;
+                    if (isInRange(tempX, tempY) && matrix[tempY][tempX] == matrix[y][x]) {
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                for (int a = 1; a < 5; a++) {
+                    int tempX = x - a * i;
+                    int tempY = y - a * j;
+                    if (isInRange(tempX, tempY) && matrix[tempY][tempX] == matrix[y][x]) {
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+                if (count >= 5) {
+                    return true;
+                }
             }
         }
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x - i, y) && matrix[y][x - i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        if (count >= 5) {
-            return true;
-        }
-
-        // kiểm tra hàng dọc
-        count = 1;
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x, y + i) && matrix[y + i][x] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x, y - i) && matrix[y - i][x] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        if (count >= 5) {
-            return true;
-        }
-
-        // kiểm tra hàng chéo \
-        count = 1;
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x + i, y + i) && matrix[y + i][x + i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x - i, y - i) && matrix[y - i][x - i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        if (count >= 5) {
-            return true;
-        }
-
-        // kiểm tra hàng chéo /
-        count = 1;
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x - i, y + i) && matrix[y + i][x - i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        for (int i = 1; i < 5; i++) {
-            if (isInRange(x + i, y - i) && matrix[y - i][x + i] == matrix[y][x]) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        if (count >= 5) {
-            return true;
-        }
-
         return false;
     }
 
@@ -194,13 +131,6 @@ public class Board {
     public Status getStatus() {
         return status;
     }
-
-    private boolean hasAvailableMove() {
-        return availableMove != 0;
-    }
-
-
-
 
 
 }

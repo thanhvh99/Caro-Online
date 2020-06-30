@@ -32,6 +32,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     private ImageView playerMarker;
     private ImageView mark1;
     private ImageView mark2;
+    private Computer computer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,13 +60,16 @@ public class OnePlayerActivity extends AbstractPlayActivity {
             @Override
             public void onClick(View v) {
                 if (board.isOngoing()) {
-                    board.undo();
+                    if (board.isFirstPlayerTurn()) {
+                        board.undo();
+                    }
                     board.undo();
                     boardViewer.setLastMove(-1, -1);
                     boardViewer.draw();
                 } else {
                     undoImage.setImageResource(R.drawable.ic_undo);
                     board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                    computer.setBoard(board);
                     setupBoardViewer();
                 }
                 updatePlayerBackground();
@@ -100,6 +104,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                computer = new Computer(board, 1, 8, Board.VALUE_O);
                 difficulty.setText(R.string.easy);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -112,6 +117,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                computer = new Computer(board, 3, 8, Board.VALUE_O);
                 difficulty.setText(R.string.normal);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -124,6 +130,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
+                computer = new Computer(board, 5, 8, Board.VALUE_O);
                 difficulty.setText(R.string.hard);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -162,7 +169,15 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         mapSize.setText(width + "");
         board = new Board(width);
         confirmMove.setChecked(sharedPreferences.getBoolean("confirm", false));
-        difficulty.setText(sharedPreferences.getString("difficulty", getString(R.string.easy)));
+        String difficultyString = sharedPreferences.getString("difficulty", getString(R.string.easy));
+        difficulty.setText(difficultyString);
+        if (difficultyString.equals(getString(R.string.easy))) {
+            computer = new Computer(board, 1, 8, Board.VALUE_O);
+        } else if (difficultyString.equals(getString(R.string.normal))) {
+            computer = new Computer(board, 3, 8, Board.VALUE_O);
+        } else {
+            computer = new Computer(board, 5, 8, Board.VALUE_O);
+        }
         setupBoardViewer();
         updatePlayerBackground();
     }
@@ -175,7 +190,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         editor.putInt("width", Integer.parseInt(mapSize.getText().toString()));
         editor.putBoolean("confirm", confirmMove.isChecked());
         editor.putString("difficulty", difficulty.getText().toString());
-        editor.apply();
+        editor.commit();
     }
 
     @Override
@@ -225,7 +240,13 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Point point = new Computer(board).AI();
+                final Point point;
+                synchronized (OnePlayerActivity.this) {
+                    point = computer.nextPoint();
+                    if (board.isFirstPlayerTurn()) {
+                        return;
+                    }
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

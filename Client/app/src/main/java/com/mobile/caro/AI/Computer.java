@@ -5,336 +5,322 @@ import android.graphics.Point;
 import com.mobile.caro.Board.Board;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class Computer {
 
-    private EvalBoard eBoard;
+    private static final int[] ATTACK_POINT = { 0, 20, 200, 2000, 20000 };
+    private static final int[] DEFENSE_POINT = { 0, 10, 100, 1000, 10000 };
+
+    private int maxDepth;
+    private int maxMove;
+
+    private Point next = new Point();
     private Board board;
-    private int x, y;
+    private int value;
+    private int size;
 
-    private int maxDepth = 3;
-    private int maxMove = 4;
-
-    private int[] AScore = {0, 4, 27, 256, 1458};
-    private int[] DScore = {0, 2, 9, 99, 769};
-
-    private Point goPoint;
-
-    public Computer(Board board) {
+    public Computer(Board board, int maxDepth, int maxMove, int value) {
         this.board = board;
-        this.eBoard = new EvalBoard(board.getSize());
+        this.maxDepth = maxDepth;
+        this.maxMove = maxMove;
+        this.value = value;
+        size = board.getMatrix().length;
     }
 
-    private void evalChessBoard(boolean isPlayer) {
-        int row, col;
-        int ePC, eHuman;
-        eBoard.resetBoard();
-
-        for (row = 0; row < eBoard.size; row++) {
-            for (col = 0; col < eBoard.size - 4; col++) {
-                ePC = 0;
-                eHuman = 0;
-                for (int i = 0; i < 5; i++) {
-                    if (board.getValueAt(col + i, row) == Board.VALUE_X) {
-                        eHuman++;
-                    }
-                    if (board.getValueAt(col + i, row) == Board.VALUE_O) {
-                        ePC++;
-                    }
-                }
-                if (eHuman * ePC == 0 && eHuman != ePC) {
-                    for (int i = 0; i < 5; i++) {
-                        if (board.getValueAt(col + i, row) == Board.VALUE_BLANK) {
-                            if (eHuman == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row][col + i] += DScore[ePC];
-                                } else {
-                                    eBoard.EBoard[row][col + i] += AScore[ePC];
-                                }
-                            }
-                            if (ePC == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row][col + i] += AScore[eHuman];
-                                } else {
-                                    eBoard.EBoard[row][col + i] += DScore[eHuman];
-                                }
-                            }
-                            if (eHuman == 4 || ePC == 4) {
-                                eBoard.EBoard[row][col + i] *= 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        for (row = 0; row < eBoard.size - 4; row++) {
-            for (col = 0; col < eBoard.size; col++) {
-                ePC = 0;
-                eHuman = 0;
-                for (int i = 0; i < 5; i++) {
-                    if (board.getValueAt(col, row + i) == Board.VALUE_X) {
-                        eHuman++;
-                    }
-                    if (board.getValueAt(col, row + i) == Board.VALUE_O) {
-                        ePC++;
-                    }
-                }
-                if (eHuman * ePC == 0 && eHuman != ePC) {
-                    for (int i = 0; i < 5; i++) {
-                        if (board.getValueAt(col, row + i) == Board.VALUE_BLANK) {
-                            if (eHuman == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row + i][col] += DScore[ePC];
-                                } else {
-                                    eBoard.EBoard[row + i][col] += AScore[ePC];
-                                }
-                            }
-                            if (ePC == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row + i][col] += AScore[eHuman];
-                                } else {
-                                    eBoard.EBoard[row + i][col] += DScore[eHuman];
-                                }
-                            }
-                            if (eHuman == 4 || ePC == 4)
-                                eBoard.EBoard[row + i][col] *= 2;
-                        }
-                    }
-                }
-            }
-        }
-
-        for (row = 0; row < eBoard.size - 4; row++) {
-            for (col = 0; col < eBoard.size - 4; col++) {
-                ePC = 0;
-                eHuman = 0;
-                for (int i = 0; i < 5; i++) {
-                    if (board.getValueAt(col + i, row + i) == Board.VALUE_X) {
-                        eHuman++;
-                    }
-                    if (board.getValueAt(col + i, row + i) == Board.VALUE_O) {
-                        ePC++;
-                    }
-                }
-                if (eHuman * ePC == 0 && eHuman != ePC) {
-                    for (int i = 0; i < 5; i++) {
-                        if (board.getValueAt(col + i, row + i) == Board.VALUE_BLANK) // Neu o chua duoc danh
-                        {
-                            if (eHuman == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row + i][col + i] += DScore[ePC];
-                                } else {
-                                    eBoard.EBoard[row + i][col + i] += AScore[ePC];
-                                }
-                            }
-                            if (ePC == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row + i][col + i] += AScore[eHuman];
-                                } else {
-                                    eBoard.EBoard[row + i][col + i] += DScore[eHuman];
-                                }
-                            }
-                            if (eHuman == 4 || ePC == 4)
-                                eBoard.EBoard[row + i][col + i] *= 2;
-                        }
-                    }
-                }
-            }
-        }
-
-        for (row = 4; row < eBoard.size; row++) {
-            for (col = 0; col < eBoard.size - 4; col++) {
-                ePC = 0;
-                eHuman = 0;
-                for (int i = 0; i < 5; i++) {
-                    if (board.getValueAt(col + i, row - i) == Board.VALUE_X) {
-                        eHuman++;
-                    }
-                    if (board.getValueAt(col + i, row - i) == Board.VALUE_O) {
-                        ePC++;
-                    }
-                }
-                if (eHuman * ePC == 0 && eHuman != ePC) {
-                    for (int i = 0; i < 5; i++) {
-                        if (board.getValueAt(col + i, row - i) == Board.VALUE_BLANK) {
-                            if (eHuman == 0)
-                                if (isPlayer) {
-                                    eBoard.EBoard[row - i][col + i] += DScore[ePC];
-                                } else {
-                                    eBoard.EBoard[row - i][col + i] += AScore[ePC];
-                                }
-                            if (ePC == 0) {
-                                if (isPlayer) {
-                                    eBoard.EBoard[row - i][col + i] += AScore[eHuman];
-                                } else {
-                                    eBoard.EBoard[row - i][col + i] += DScore[eHuman];
-                                }
-                            }
-                            if (eHuman == 4 || ePC == 4) {
-                                eBoard.EBoard[row - i][col + i] *= 2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    public void setBoard(Board board) {
+        this.board = board;
+        size = board.getSize();
     }
 
-    private int maxValue(int alpha, int beta, int depth) {
-
-        eBoard.maxPos();
-        int value = eBoard.evaluationBoard;
-        if (depth >= maxDepth) {
-            return value;
-        }
-        evalChessBoard(false);
-        ArrayList<Point> list = new ArrayList<>();
-        for (int i = 0; i < maxMove; i++) {
-            Point node = eBoard.maxPos();
-            if (node != null) {
-                list.add(node);
-                eBoard.EBoard[node.y][node.x] = 0;
-            } else {
-                break;
-            }
-        }
+    public Point nextPoint() {
+        Board temp = board;
+        board = new Board(board);
+        int[][] matrix = board.getMatrix();
+        List<Integer> moves = getPossibleMoves(value);
         int v = Integer.MIN_VALUE;
-        for (int i = 0; i < list.size(); i++) {
-            Point com = list.get(i);
-            board.setValueAt(com.x, com.y, Board.VALUE_O);
-            v = Math.max(v, minValue(alpha, beta, depth+1));
-            board.setValueAt(com.x, com.y, Board.VALUE_BLANK);
-            if(v >= beta || board.checkBoard(com.x, com.y)) {
-                goPoint = com;
-                return v;
+        int alpha = Integer.MIN_VALUE;
+        int beta = Integer.MAX_VALUE;
+        for (int i = 0; i < moves.size(); i++) {
+            int move = moves.get(i);
+            int x = move % size;
+            int y = move / size;
+            matrix[y][x] = value;
+            v = Math.max(v, minValue(move, alpha, beta, 1));
+            matrix[y][x] = Board.VALUE_BLANK;
+            if (v > alpha) {
+                next.set(x, y);
+                alpha = v;
             }
-            alpha = Math.max(alpha, v);
-        }
-
-        return v;
-    }
-
-    private int minValue(int alpha, int beta, int depth) {
-        eBoard.maxPos();
-        int value = eBoard.evaluationBoard;
-        if (depth >= maxDepth) {
-            return value;
-        }
-        evalChessBoard(true);
-        ArrayList<Point> list = new ArrayList<>();
-        for (int i = 0; i < maxMove; i++) {
-            Point node = eBoard.maxPos();
-            if (node != null) {
-                list.add(node);
-                eBoard.EBoard[node.y][node.x] = Board.VALUE_BLANK;
-            } else {
+            if (alpha >= beta) {
                 break;
             }
         }
-        int v = Integer.MAX_VALUE;
-        for (int i = 0; i < list.size(); i++) {
-            Point com = list.get(i);
-            board.setValueAt(com.x, com.y, Board.VALUE_X);
-            v = Math.min(v, maxValue(alpha, beta, depth + 1));
-            board.setValueAt(com.x, com.y, Board.VALUE_BLANK);
-            if (v <= alpha || board.checkBoard(com.x, com.y)) {
-                return v;
+        board = temp;
+        return next;
+    }
+
+    private int maxValue(int last, int alpha, int beta, int depth) {
+        if (board.checkBoard(last % size, last / size)) {
+            return Integer.MIN_VALUE / 2;
+        }
+        if (depth >= maxDepth) {
+            return getBoardPoint(value);
+        }
+        int[][] matrix = board.getMatrix();
+        List<Integer> moves = getPossibleMoves(value);
+        int v = Integer.MIN_VALUE;
+        for (int i = 0; i < moves.size(); i++) {
+            int move = moves.get(i);
+            int x = move % size;
+            int y = move / size;
+            matrix[y][x] = value;
+            v = Math.max(v, minValue(move, alpha, beta, depth + 1));
+            matrix[y][x] = Board.VALUE_BLANK;
+            if (v > alpha) {
+                alpha = v;
             }
-            beta = Math.min(beta, v);
+            if (alpha >= beta) {
+                break;
+            }
         }
         return v;
     }
 
-    public Point AI() {
-        try {
-            Thread.sleep(new Random().nextInt(500) + 250);
-        } catch (Exception e) {
-            e.printStackTrace();
+    private int minValue(int last, int alpha, int beta, int depth) {
+        if (board.checkBoard(last % size, last / size)) {
+            return Integer.MAX_VALUE / 2;
         }
-        Point attackMove = null;
-        Point defendMove = null;
-        int attackMax = 0;
-        int defendMax = 0;
-        int x;
-        int y;
-        for (y = 0; y < board.getSize(); y++) {
-            for (x = 0; x < board.getSize(); x++) {
-                if (board.getValueAt(x, y) == Board.VALUE_X) {
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            if (i == 0 && j == 0) {
-                                continue;
-                            }
-                            if (!board.isInRange(x - i, y - j)) {
-                                continue;
-                            }
-                            if (board.getValueAt(x - i, y - j) != Board.VALUE_BLANK) {
-                                continue;
-                            }
-                            int count = count(x, y, i, j);
-                            if (count >= defendMax) {
-                                defendMax = count;
-                                defendMove = new Point(x - i, y - j);
+        if (depth >= maxDepth) {
+            return getBoardPoint(value);
+        }
+        int[][] matrix = board.getMatrix();
+        List<Integer> moves = getPossibleMoves(3 - value);
+        int v = Integer.MAX_VALUE;
+        for (int i = 0; i < moves.size(); i++) {
+            int move = moves.get(i);
+            int x = move % size;
+            int y = move / size;
+            matrix[y][x] = 3 - value;
+            v = Math.min(v, maxValue(move, alpha, beta, depth + 1));
+            matrix[y][x] = Board.VALUE_BLANK;
+            if (v < beta) {
+                beta = v;
+            }
+            if (alpha >= beta) {
+                break;
+            }
+        }
+        return v;
+    }
+
+    private int getBoardPoint(int value) {
+        int[][] matrix1 = evalBoard(value);
+        int[][] matrix2 = evalBoard(3 - value);
+
+        int result = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                result += matrix1[i][j] - matrix2[i][j];
+            }
+        }
+        return result;
+    }
+
+    private List<Integer> getPossibleMoves(int value) {
+        int[][] matrix = evalBoard(value);
+        PriorityQueue<Move> queue = new PriorityQueue<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (matrix[i][j] != 0) {
+                    queue.add(new Move(j, i, matrix[i][j]));
+                    if (queue.size() > maxMove) {
+                        queue.poll();
+                    }
+                }
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            Move move = queue.poll();
+            result.add(0, move.y * size + move.x);
+        }
+        return result;
+    }
+
+    private int[][] evalBoard(int value) {
+        int[][] matrix = this.board.getMatrix();
+        int[][] result = new int[size][size];
+
+        int row, col, countX, countO;
+
+        for (row = 0; row < size; row++) {
+            for (col = 0; col < size - 4; col++) {
+                countX = 0;
+                countO = 0;
+                for (int i = 0; i < 5; i++) {
+                    if (matrix[row][col + i] == Board.VALUE_X) {
+                        countX++;
+                    }
+                    if (matrix[row][col + i] == Board.VALUE_O) {
+                        countO++;
+                    }
+                }
+                if (countX * countO == 0 && countX != countO) {
+                    for (int i = 0; i < 5; i++) {
+                        if (matrix[row][col + i] != Board.VALUE_BLANK) {
+                            continue;
+                        }
+                        if (countX == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row][col + i] += DEFENSE_POINT[countO];
+                            } else {
+                                result[row][col + i] += ATTACK_POINT[countO];
                             }
                         }
-                    }
-                } else if (board.getValueAt(x, y) == Board.VALUE_O) {
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            if (i == 0 && j == 0) {
-                                continue;
+                        if (countO == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row][col + i] += ATTACK_POINT[countX];
+                            } else {
+                                result[row][col + i] += DEFENSE_POINT[countX];
                             }
-                            if (!board.isInRange(x - i, y - j)) {
-                                continue;
-                            }
-                            if (board.getValueAt(x - i, y - j) != Board.VALUE_BLANK) {
-                                continue;
-                            }
-                            int count = count(x, y, i, j);
-                            if (count >= attackMax) {
-                                attackMax = count;
-                                attackMove = new Point(x - i, y - j);
-                            }
+                        }
+                        if (countO == 4 || countX == 4) {
+                            result[row][col + i] *= 10;
                         }
                     }
                 }
             }
         }
 
-        if (defendMax > attackMax) {
-            if (defendMove != null) {
-                return defendMove;
-            }
-        } else {
-            if (attackMove != null) {
-                return attackMove;
+        for (row = 0; row < size - 4; row++) {
+            for (col = 0; col < size; col++) {
+                countX = 0;
+                countO = 0;
+                for (int i = 0; i < 5; i++) {
+                    if (matrix[row + i][col] == Board.VALUE_X) {
+                        countX++;
+                    }
+                    if (matrix[row + i][col] == Board.VALUE_O) {
+                        countO++;
+                    }
+                }
+                if (countX * countO == 0 && countX != countO) {
+                    for (int i = 0; i < 5; i++) {
+                        if (matrix[row + i][col] != Board.VALUE_BLANK) {
+                            continue;
+                        }
+                        if (countX == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row + i][col] += DEFENSE_POINT[countO];
+                            } else {
+                                result[row + i][col] += ATTACK_POINT[countO];
+                            }
+                        }
+                        if (countO == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row + i][col] += ATTACK_POINT[countX];
+                            } else {
+                                result[row + i][col] += DEFENSE_POINT[countX];
+                            }
+                        }
+                        if (countO == 4 || countX == 4) {
+                            result[row + i][col] *= 10;
+                        }
+                    }
+                }
             }
         }
 
-        Point result = new Point();
-        Random random = new Random();
-        do {
-            result.x = random.nextInt(board.getSize());
-            result.y = random.nextInt(board.getSize());
-        } while (board.getValueAt(result.x, result.y) != Board.VALUE_BLANK);
+        for (row = 0; row < size - 4; row++) {
+            for (col = 0; col < size - 4; col++) {
+                countX = 0;
+                countO = 0;
+                for (int i = 0; i < 5; i++) {
+                    if (matrix[row + i][col + i] == Board.VALUE_X) {
+                        countX++;
+                    }
+                    if (matrix[row + i][col + i] == Board.VALUE_O) {
+                        countO++;
+                    }
+                }
+                if (countX * countO == 0 && countX != countO) {
+                    for (int i = 0; i < 5; i++) {
+                        if (matrix[row + i][col + i] != Board.VALUE_BLANK) {
+                            continue;
+                        }
+                        if (countX == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row + i][col + i] += DEFENSE_POINT[countO];
+                            } else {
+                                result[row + i][col + i] += ATTACK_POINT[countO];
+                            }
+                        }
+                        if (countO == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row + i][col + i] += ATTACK_POINT[countX];
+                            } else {
+                                result[row + i][col + i] += DEFENSE_POINT[countX];
+                            }
+                        }
+                        if (countO == 4 || countX == 4) {
+                            result[row + i][col + i] *= 10;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (row = 4; row < size; row++) {
+            for (col = 0; col < size - 4; col++) {
+                countX = 0;
+                countO = 0;
+                for (int i = 0; i < 5; i++) {
+                    if (matrix[row - i][col + i] == Board.VALUE_X) {
+                        countX++;
+                    }
+                    if (matrix[row - i][col + i] == Board.VALUE_O) {
+                        countO++;
+                    }
+                }
+                if (countX * countO == 0 && countX != countO) {
+                    for (int i = 0; i < 5; i++) {
+                        if (matrix[row - i][col + i] != Board.VALUE_BLANK) {
+                            continue;
+                        }
+                        if (countX == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row - i][col + i] += DEFENSE_POINT[countO];
+                            } else {
+                                result[row - i][col + i] += ATTACK_POINT[countO];
+                            }
+                        }
+                        if (countO == 0) {
+                            if (value == Board.VALUE_X) {
+                                result[row - i][col + i] += ATTACK_POINT[countX];
+                            } else {
+                                result[row - i][col + i] += DEFENSE_POINT[countX];
+                            }
+                        }
+                        if (countO == 4 || countX == 4) {
+                            result[row - i][col + i] *= 10;
+                        }
+                    }
+                }
+            }
+        }
         return result;
     }
 
-    private int count(int x, int y, int dirX, int dirY) {
-        int result = 0;
-        int value = board.getValueAt(x, y);
-        for (int i = 0; i < 5; i++) {
-            if (!board.isInRange(x + dirX * i, y + dirY * i)) {
-                return result;
+    public static String get2DArrayPrint(int[][] matrix) {
+        StringBuilder output = new StringBuilder();
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                output.append(anInt).append("\t");
             }
-            if (board.getValueAt(x + dirX * i, y + dirY * i) == value) {
-                result++;
-            } else {
-                return result;
-            }
+            output.append("\n");
         }
-        return result;
+        return output.toString();
     }
 }
