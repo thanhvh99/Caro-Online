@@ -45,7 +45,8 @@ public class Match implements Serializable {
         try {
             match.win = object.getString("winner").equals(SocketHandler.getPlayer().getUsername());
             match.opponent = object.getString(match.win ? "loser" : "winner");
-            match.elo = match.win ? "+" + object.getString("winPoint") : "-" + object.getString("losePoint");
+            String losePoint = object.getString("losePoint");
+            match.elo = match.win ? "+" + object.getString("winPoint") : ((losePoint.equals("0") ? "-" : "") + losePoint);
             match.first = object.getString("first").equals(SocketHandler.getPlayer().getUsername());
             match.moves = object.getString("history");
         } catch (Exception e) {

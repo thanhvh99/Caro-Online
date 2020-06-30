@@ -19,6 +19,8 @@ import com.mobile.caro.Board.Board;
 import com.mobile.caro.MyToast;
 import com.mobile.caro.R;
 
+import java.util.Arrays;
+
 
 public class OnePlayerActivity extends AbstractPlayActivity {
 
@@ -33,6 +35,9 @@ public class OnePlayerActivity extends AbstractPlayActivity {
     private ImageView mark1;
     private ImageView mark2;
     private Computer computer;
+
+    private int[] depth = { 2, 4, 6 };
+    private int moves = 6;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +109,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
-                computer = new Computer(board, 1, 8, Board.VALUE_O);
+                computer = new Computer(board, depth[0], moves, Board.VALUE_O);
                 difficulty.setText(R.string.easy);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -117,7 +122,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
-                computer = new Computer(board, 3, 8, Board.VALUE_O);
+                computer = new Computer(board, depth[1], moves, Board.VALUE_O);
                 difficulty.setText(R.string.normal);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -130,7 +135,7 @@ public class OnePlayerActivity extends AbstractPlayActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 undoImage.setImageResource(R.drawable.ic_undo);
                 board = new Board(Integer.parseInt(mapSize.getText().toString()));
-                computer = new Computer(board, 5, 8, Board.VALUE_O);
+                computer = new Computer(board, depth[2], moves, Board.VALUE_O);
                 difficulty.setText(R.string.hard);
                 setupBoardViewer();
                 updatePlayerBackground();
@@ -165,19 +170,12 @@ public class OnePlayerActivity extends AbstractPlayActivity {
 
     private void initialize() {
         SharedPreferences sharedPreferences = getSharedPreferences("SingleplayerSettings", MODE_PRIVATE);
-        int width = sharedPreferences.getInt("width", 15);
-        mapSize.setText(width + "");
-        board = new Board(width);
+        mapSize.setText(sharedPreferences.getString("width", "15"));
+        board = new Board(Integer.parseInt(mapSize.getText().toString()));
         confirmMove.setChecked(sharedPreferences.getBoolean("confirm", false));
-        String difficultyString = sharedPreferences.getString("difficulty", getString(R.string.easy));
-        difficulty.setText(difficultyString);
-        if (difficultyString.equals(getString(R.string.easy))) {
-            computer = new Computer(board, 1, 8, Board.VALUE_O);
-        } else if (difficultyString.equals(getString(R.string.normal))) {
-            computer = new Computer(board, 3, 8, Board.VALUE_O);
-        } else {
-            computer = new Computer(board, 5, 8, Board.VALUE_O);
-        }
+        int difficultyIndex = sharedPreferences.getInt("difficulty", 1);
+        computer = new Computer(board, depth[difficultyIndex], moves, Board.VALUE_O);
+        difficulty.setText(getResources().getStringArray(R.array.difficulty)[difficultyIndex]);
         setupBoardViewer();
         updatePlayerBackground();
     }
@@ -187,10 +185,10 @@ public class OnePlayerActivity extends AbstractPlayActivity {
         super.onDestroy();
         SharedPreferences sharedPreferences = getSharedPreferences("SingleplayerSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("width", Integer.parseInt(mapSize.getText().toString()));
+        editor.putString("width", mapSize.getText().toString());
         editor.putBoolean("confirm", confirmMove.isChecked());
-        editor.putString("difficulty", difficulty.getText().toString());
-        editor.commit();
+        editor.putInt("difficulty", Arrays.asList(getResources().getStringArray(R.array.difficulty)).indexOf(difficulty.getText().toString()));
+        editor.apply();
     }
 
     @Override
