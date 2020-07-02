@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.mobile.caro.R;
@@ -166,7 +167,7 @@ public class StatisticFragment extends Fragment {
             Match match = matches.get(position);
             holder.username.setText(match.getOpponent());
             holder.elo.setText(match.getElo());
-            holder.elo.setTextColor(fragment.getResources().getColor(match.isWin() ? R.color.color_emerald : R.color.color_alizarin));
+            holder.elo.setTextColor(ContextCompat.getColor(fragment.getContext(), match.isWin() ? R.color.color_emerald : R.color.color_alizarin));
             return view;
         }
 
