@@ -142,10 +142,6 @@ public class TwoPlayersActivity extends AbstractPlayActivity {
             @Override
             public void onClick(View v) {
                 switchMarker.setChecked(!switchMarker.isChecked());
-                boardViewer.setSwitchMarker(switchMarker.isChecked());
-                mark1.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.o : R.drawable.x);
-                mark2.setImageResource(boardViewer.isSwitchMarker() ? R.drawable.x : R.drawable.o);
-                boardViewer.draw();
             }
         });
 
